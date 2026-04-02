@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="navbar.master.cs" Inherits="TunePilot.navbar" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="~/css/style.css" rel="stylesheet" runat="server" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <body>
+        <form id="form1" runat="server">
+
+            <!-- NAVBAR -->
+            <header class="navbar navbar-dark">
+                <div class="nav-container">
+                    <h2 class="nav-logo">TunePilot</h2>
+
+                    <nav class="nav-links">
+                        <ul>
+                            <li><a href="home.aspx">Home</a></li>
+                            <li><a href="profile.aspx">Pricing</a></li>
+                            <li><a href="login.aspx">Idk</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="login.aspx">Login</a></li>
+                            <li><a href="register.aspx">Register</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+            </div>
+
+        </form>
+    </body>
+</html>

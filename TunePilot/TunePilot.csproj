@@ -67,12 +67,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="damnpage.aspx" />
+    <Content Include="home.aspx" />
+    <Content Include="css\style.css" />
+    <Content Include="resources\img\shafou.jpg" />
+    <Content Include="resources\sfx\scarymazegamesound.mp3" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="damnpage.aspx.cs">
+      <DependentUpon>damnpage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="damnpage.aspx.designer.cs">
+      <DependentUpon>damnpage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="home.aspx.cs">
+      <DependentUpon>home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="home.aspx.designer.cs">
+      <DependentUpon>home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="navbar.Master.cs">
+      <DependentUpon>navbar.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="navbar.Master.designer.cs">
+      <DependentUpon>navbar.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="navbar.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -80,6 +107,10 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\music\" />
+    <Folder Include="resources\vid\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
