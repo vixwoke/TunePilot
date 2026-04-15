@@ -5,10 +5,27 @@
     box-sizing: border-box;
 }
 
+:root {
+    --tp-color-strong: #7D5A50;
+    --tp-color-semistrong: #B4846C;
+    --tp-color-secondary: #E5B299;
+    --tp-color-background: #FCDEC0;
+}
+
+/*
+@font-face {
+    font-family: 'montserrat';
+    font-style: normal;
+    font-weight: NUMERIC_WEIGHT_VALUE;
+    font-display: swap;
+    src: url(FONT_FILE_NAME.woff2) format('woff2');
+}
+*/
+
 /* GLOBAL BODY STYLE */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: Montserrat, sans-serif;
+    background-color: var(--tp-color-background);
 }
 
 /* =========================
@@ -17,17 +34,19 @@ body {
 .navbar {
     width: 100%;
     padding: 12px 20px;
+    background-color: var(--tp-color-secondary); /*pls remove this if using light mode or dark mode. it should be placed in both modes.*/
+    border-bottom: 1px solid #ddd; /*pls remove this if using light mode or dark mode. it should be placed in both modes.*/
 }
 
-/* VARIATION */
+/* VARIATION
 .navbar-dark {
     background-color: #333;
-}
+} 
 
 .navbar-light {
-    background-color: #ffffff;
+    background-color: var(--tp-color-strong);
     border-bottom: 1px solid #ddd;
-}
+} */
 
 /* CONTAINER */
 .nav-container {
@@ -44,39 +63,56 @@ body {
     font-weight: bold;
 }
 
-.navbar-dark .nav-logo {
+/*.navbar-dark .nav-logo {
     color: white;
 }
+*/
 
 .navbar-light .nav-logo {
     color: #333;
 }
 
 /* LINKS */
-.nav-links a {
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 14px;
-    transition: 0.3s;
+.nav-links {
+    list-style: none;
+    display: flex;
 }
 
-/* DARK MODE LINKS */
+    .nav-links ul{
+        list-style: none;
+        display: flex;
+    }
+    .nav-links a {
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+        color: var(--tp-color-strong); /*pls remove this if using light mode or dark mode. it should be placed in both modes.*/
+    }
+
+    .navbar .nav-links a:hover { /*pls remove this if using light mode or dark mode. it should be placed in both modes.*/
+        color: var(--tp-color-semistrong);
+    }
+
+
+/* DARK MODE LINKS 
 .navbar-dark .nav-links a {
     color: white;
 }
 
-    .navbar-dark .nav-links a:hover {
-        color: #00bcd4;
-    }
+.navbar-dark .nav-links a:hover {
+    color: #00bcd4;
+}*/
 
-/* LIGHT MODE LINKS */
+/* LIGHT MODE LINKS
 .navbar-light .nav-links a {
     color: #333;
 }
 
-    .navbar-light .nav-links a:hover {
-        color: #007bff;
-    }
+.navbar-light .nav-links a:hover {
+    color: #007bff;
+} */
 
 /* =========================
    CONTENT AREA
@@ -85,7 +121,7 @@ body {
     max-width: 1100px;
     margin: 30px auto;
     padding: 20px;
-    background: white;
+    background: var(--tp-color-secondary);
     border-radius: 5px;
 }
 
@@ -93,6 +129,7 @@ body {
    BUTTON (optional)
 ========================= */
 .btn {
+    text-decoration: none;
     padding: 8px 15px;
     border: none;
     cursor: pointer;
@@ -100,7 +137,7 @@ body {
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: var(--tp-color-strong);
     color: white;
 }
 
