@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
-    <div class="container">
+    <div runat="server" class="container readmodecenter">
         <h1>Welcome to TunePilot</h1>
         <h2>This is the homepage.</h2>
         <br />

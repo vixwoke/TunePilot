@@ -70,6 +70,7 @@
     <Content Include="damnpage.aspx" />
     <Content Include="home.aspx" />
     <Content Include="css\style.css" />
+    <Content Include="resources\img\idk_this_guy.png" />
     <Content Include="resources\img\shafou.jpg" />
     <Content Include="resources\sfx\scarymazegamesound.mp3" />
     <Content Include="Web.config" />
@@ -109,6 +110,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="resources\client\" />
+    <Folder Include="resources\content\" />
     <Folder Include="resources\music\" />
     <Folder Include="resources\vid\" />
   </ItemGroup>
