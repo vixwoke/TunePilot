@@ -50,11 +50,11 @@ moving their head to left or right.
     APPLY THIS ON CONTAINER ONLY!
 ========================= */
 .readmode {
-    max-width: 800px;
+    max-width: 70%;
 }
 
 .readmodecenter {
-    max-width: 800px;
+    max-width: 70%;
     margin: 30px auto;
 }
 
@@ -204,3 +204,4 @@ moving their head to left or right.
     .btn-primary:hover {
         background-color: #0056b3;
     }
+

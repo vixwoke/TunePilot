@@ -9,9 +9,20 @@ namespace TunePilot
 {
     public partial class home : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void buttonGetStart_Click(object sender, EventArgs e)
+        {
+            //redirect to course lesson
+        }
+
+        protected void buttonAboutUs_Click(object sender, EventArgs e)
+        {
+            //redirect to about us
         }
     }
 }
