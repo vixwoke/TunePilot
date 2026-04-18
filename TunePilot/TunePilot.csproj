@@ -71,10 +71,29 @@
     <Content Include="editprofile.aspx" />
     <Content Include="home.aspx" />
     <Content Include="css\style.css" />
-    <Content Include="register.aspx" />
+    <Content Include="MediaTutorial.aspx" />
+    <Content Include="resources\homepage\acoustic.jpg" />
+    <Content Include="resources\homepage\drum.jpg" />
+    <Content Include="resources\homepage\drum2.jpeg" />
+    <Content Include="resources\homepage\Layla.mp4" />
+    <Content Include="resources\homepage\left.png" />
+    <Content Include="resources\homepage\right.png" />
+    <Content Include="resources\homepage\trumpet.jpg" />
     <Content Include="resources\img\idk_this_guy.png" />
     <Content Include="resources\img\shafou.jpg" />
     <Content Include="resources\sfx\scarymazegamesound.mp3" />
+    <Content Include="resources\studentDashboard\drum.png" />
+    <Content Include="resources\studentDashboard\drum1.png" />
+    <Content Include="resources\studentDashboard\drumsVoice.m4a" />
+    <Content Include="resources\studentDashboard\guitar.jpg" />
+    <Content Include="resources\studentDashboard\guitar1.png" />
+    <Content Include="resources\studentDashboard\guitarVoice.m4a" />
+    <Content Include="resources\studentDashboard\square.png" />
+    <Content Include="resources\studentDashboard\square1.png" />
+    <Content Include="resources\studentDashboard\trumpet.jpg" />
+    <Content Include="resources\studentDashboard\trumpet1.png" />
+    <Content Include="resources\studentDashboard\trumpetVoice.m4a" />
+    <Content Include="StudentDashboard.aspx" />
     <Content Include="Web.config" />
     <Content Include="login.aspx" />
   </ItemGroup>
@@ -99,6 +118,13 @@
     </Compile>
     <Compile Include="home.aspx.designer.cs">
       <DependentUpon>home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MediaTutorial.aspx.cs">
+      <DependentUpon>MediaTutorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MediaTutorial.aspx.designer.cs">
+      <DependentUpon>MediaTutorial.aspx</DependentUpon>
     </Compile>
     <Compile Include="navbar.Master.cs">
       <DependentUpon>navbar.Master</DependentUpon>
