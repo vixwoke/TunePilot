@@ -48,7 +48,7 @@ namespace TunePilot
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                string q = "SELECT name, description FROM instruments WHERE instrument_id=@id";
+                string q = "SELECT name, description,category FROM instruments WHERE instrument_id=@id";
                 SqlCommand cmd = new SqlCommand(q, con);
                 cmd.Parameters.AddWithValue("@id", instrument);
 
@@ -58,7 +58,9 @@ namespace TunePilot
                 if (r.Read())
                 {
                     LabelInstrumentName.Text = r["name"].ToString();
+                    LabelCategory.Text = " ~ " + r["category"].ToString();
                     LabelDescription.Text = r["description"].ToString();
+                    
                 }
             }
         }

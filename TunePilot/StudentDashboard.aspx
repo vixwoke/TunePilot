@@ -47,7 +47,8 @@
         </div>
 
         <!-- Instrument Info -->
-        <asp:Label ID="LabelInstrumentName" runat="server"></asp:Label><br />
+        <asp:Label ID="LabelInstrumentName" runat="server"></asp:Label>
+        <asp:Label ID="LabelCategory" runat="server" ></asp:Label><br />
         <asp:Label ID="LabelDescription" runat="server"></asp:Label>
 
         <hr />
