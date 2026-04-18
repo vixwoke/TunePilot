@@ -84,6 +84,9 @@
     <Content Include="resources\homepage\trumpet.jpg" />
     <Content Include="resources\img\idk_this_guy.png" />
     <Content Include="resources\img\shafou.jpg" />
+    <Content Include="resources\logo\logo_tp_black.png" />
+    <Content Include="resources\logo\logo_tp_white.png" />
+    <Content Include="resources\logo\tunepilot-logo-full.svg" />
     <Content Include="resources\sfx\scarymazegamesound.mp3" />
     <Content Include="resources\studentDashboard\drum.png" />
     <Content Include="resources\studentDashboard\drum1.png" />
@@ -186,7 +189,9 @@
   <ItemGroup>
     <Folder Include="resources\client\" />
     <Folder Include="resources\content\" />
+    <Folder Include="resources\icon\" />
     <Folder Include="resources\music\" />
+    <Folder Include="resources\svg\" />
     <Folder Include="resources\vid\" />
   </ItemGroup>
   <PropertyGroup>

@@ -1,13 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="home.aspx.cs" Inherits="TunePilot.home" MasterPageFile="~/navbar.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <div runat="server" class="container readmodecenter">
+    <div runat="server" class="container">
          <h1 style="text-align: center">Welcome to TunePilot</h1>
 
         <br />
         <br />
-        <h3 style="text-align: center">Use TunePilot to learn musical instruments anytime and anywhere.</h3>
+        <h3 style="text-align: center">Use TunePilot .to learn musical instruments anytime and anywhere.</h3>
 
         <video style="width: 70%; display: block; margin: 20px auto;" autoplay muted controls>
             <source src="\resources\homepage\Layla.mp4" type="video/mp4">

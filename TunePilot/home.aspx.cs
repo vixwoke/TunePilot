@@ -11,7 +11,7 @@ namespace TunePilot
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Page.Title = "TunePilot";
         }
 
         protected void buttonGetStart_Click(object sender, EventArgs e)
