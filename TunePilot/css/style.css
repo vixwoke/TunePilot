@@ -5,27 +5,57 @@
     box-sizing: border-box;
 }
 
-:root {
-    --tp-color-strong: #7D5A50;
-    --tp-color-semistrong: #B4846C;
-    --tp-color-secondary: #E5B299;
-    --tp-color-background: #FCDEC0;
-}
 
-/*
-@font-face {
-    font-family: 'montserrat';
-    font-style: normal;
-    font-weight: NUMERIC_WEIGHT_VALUE;
-    font-display: swap;
-    src: url(FONT_FILE_NAME.woff2) format('woff2');
+:root {
+    /*  uncomment and comment to reverse color pallete.*/
+
+    --tp-color-strong: #A59D84;
+    --tp-color-semistrong: #C1BAA1;
+    --tp-color-secondary: #D7D3BF;
+    --tp-color-background: #ECEBDE;
+    /*    --tp-color-strong: #ECEBDE;
+    --tp-color-semistrong: #D7D3BF;
+    --tp-color-secondary: #C1BAA1;
+    --tp-color-background: #A59D84;*/
 }
-*/
 
 /* GLOBAL BODY STYLE */
 body {
+    font-size: 16px;
     font-family: Montserrat, sans-serif;
     background-color: var(--tp-color-background);
+}
+
+p {
+    font-size: clamp(0.95rem, 1vw, 1.05rem);
+}
+
+h3 {
+    font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+/* =========================
+        READ MODE
+basically this is like a limit for the container width.
+the limit is to ensure that a reader can read without
+moving their head to left or right. 
+    APPLY THIS ON CONTAINER ONLY!
+========================= */
+.readmode {
+    max-width: 800px;
+}
+
+.readmodecenter {
+    max-width: 800px;
+    margin: 30px auto;
 }
 
 /* =========================
@@ -50,6 +80,7 @@ body {
 
 /* CONTAINER */
 .nav-container {
+    /*border: solid 2px green;*/ /*for debugging only. disable before deployment.*/
     max-width: 1100px;
     margin: auto;
     display: flex;
@@ -76,13 +107,18 @@ body {
 .nav-links {
     list-style: none;
     display: flex;
+    /*border: solid 2px green;*/ /*for debugging only. disable before deployment.*/
 }
 
-    .nav-links ul{
+    .nav-links ul {
+        /*border: solid 2px green;*/ /*for debugging only. disable before deployment.*/
         list-style: none;
         display: flex;
+        margin: auto;
     }
+
     .nav-links a {
+        /*border: solid 2px green;*/ /*for debugging only. disable before deployment.*/
         text-decoration: none;
         margin-left: 20px;
         font-size: 14px;
@@ -91,9 +127,35 @@ body {
         color: var(--tp-color-strong); /*pls remove this if using light mode or dark mode. it should be placed in both modes.*/
     }
 
-    .navbar .nav-links a:hover { /*pls remove this if using light mode or dark mode. it should be placed in both modes.*/
-        color: var(--tp-color-semistrong);
+.navbar .nav-links a:hover { /*pls remove this if using light mode or dark mode. it should be placed in both modes.*/
+    color: var(--tp-color-semistrong);
+}
+
+.acc-corner-container {
+    border-radius: 12px;
+    background: var(--tp-color-strong);
+    padding: 10px;
+    margin-left: 20px;
+    /*border: solid 2px green;*/ /*for debugging only. disable before deployment.*/
+    display: flex;
+    transition: 0.3s;
+}
+
+    .acc-corner-container:hover {
+        cursor:pointer;
+        background-color: var(--tp-color-semistrong);
     }
+
+.acc-corner-picture {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.acc-corner-text {
+    color: white;
+}
 
 
 /* DARK MODE LINKS 
@@ -118,8 +180,6 @@ body {
    CONTENT AREA
 ========================= */
 .container {
-    max-width: 1100px;
-    margin: 30px auto;
     padding: 20px;
     background: var(--tp-color-secondary);
     border-radius: 5px;

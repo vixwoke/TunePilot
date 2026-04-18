@@ -66,11 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="damnpage.aspx" />
+    <Content Include="editprofile.aspx" />
     <Content Include="home.aspx" />
     <Content Include="css\style.css" />
+    <Content Include="register.aspx" />
+    <Content Include="resources\img\idk_this_guy.png" />
     <Content Include="resources\img\shafou.jpg" />
     <Content Include="resources\sfx\scarymazegamesound.mp3" />
     <Content Include="Web.config" />
+    <Content Include="login.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="damnpage.aspx.cs">
@@ -79,6 +83,13 @@
     </Compile>
     <Compile Include="damnpage.aspx.designer.cs">
       <DependentUpon>damnpage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="editprofile.aspx.cs">
+      <DependentUpon>editprofile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="editprofile.aspx.designer.cs">
+      <DependentUpon>editprofile.aspx</DependentUpon>
     </Compile>
     <Compile Include="home.aspx.cs">
       <DependentUpon>home.aspx</DependentUpon>
@@ -95,6 +106,20 @@
       <DependentUpon>navbar.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="navbar.Master" />
@@ -107,6 +132,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="resources\client\" />
+    <Folder Include="resources\content\" />
     <Folder Include="resources\music\" />
     <Folder Include="resources\vid\" />
   </ItemGroup>

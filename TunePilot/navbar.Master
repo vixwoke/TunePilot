@@ -25,12 +25,20 @@
                         <ul>
                             <li><a href="home.aspx">Home</a></li>
                             <li><a href="profile.aspx">Pricing</a></li>
-                            <li><a href="login.aspx">Idk</a></li>
+                            <li><a href="login.aspx">idk</a></li>
                         </ul>
                         <ul>
                             <li><a href="login.aspx">Login</a></li>
                             <li><a href="register.aspx">Register</a></li>
                         </ul>
+                        <div class="acc-corner-container">
+                            <asp:Image ImageUrl="resources/img/idk_this_guy.png" runat="server" CssClass="acc-corner-picture"/>
+                            <div class="acc-corner-text">
+                                <asp:Label ID="lblName" Text="Gilang" runat="server" style="font-size: 1rem;"/> 
+                                <br />
+                                <asp:Label ID="lblUserame" Text="@theusername" runat="server" style="font-size: 0.8rem;" />
+                            </div>
+                        </div>
                     </nav>
                 </div>
             </header>
