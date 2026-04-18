@@ -65,6 +65,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminDashboard.aspx" />
     <Content Include="damnpage.aspx" />
     <Content Include="editprofile.aspx" />
     <Content Include="home.aspx" />
@@ -77,6 +78,13 @@
     <Content Include="login.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="damnpage.aspx.cs">
       <DependentUpon>damnpage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
