@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MediaTutorial.aspx.cs" Inherits="TunePilot.MediaTutorial" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Lesson.aspx.cs" Inherits="TunePilot.Lesson" %>
 
 <!DOCTYPE html>
 

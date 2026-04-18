@@ -10,7 +10,7 @@
 
 namespace TunePilot
 {
-    public partial class MediaTutorial
+    public partial class Quiz
     {
 
         /// <summary>

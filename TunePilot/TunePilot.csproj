@@ -64,11 +64,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database.mdf" />
+    <Content Include="App_Data\Database_log.ldf">
+      <DependentUpon>Database.mdf</DependentUpon>
+    </Content>
     <Content Include="damnpage.aspx" />
     <Content Include="editprofile.aspx" />
+    <Content Include="Exam.aspx" />
     <Content Include="home.aspx" />
     <Content Include="css\style.css" />
-    <Content Include="MediaTutorial.aspx" />
+    <Content Include="Lesson.aspx" />
+    <Content Include="Quiz.aspx" />
     <Content Include="resources\homepage\acoustic.jpg" />
     <Content Include="resources\homepage\drum.jpg" />
     <Content Include="resources\homepage\drum2.jpeg" />
@@ -109,6 +115,13 @@
     <Compile Include="editprofile.aspx.designer.cs">
       <DependentUpon>editprofile.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Exam.aspx.cs">
+      <DependentUpon>Exam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exam.aspx.designer.cs">
+      <DependentUpon>Exam.aspx</DependentUpon>
+    </Compile>
     <Compile Include="home.aspx.cs">
       <DependentUpon>home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -116,12 +129,12 @@
     <Compile Include="home.aspx.designer.cs">
       <DependentUpon>home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MediaTutorial.aspx.cs">
-      <DependentUpon>MediaTutorial.aspx</DependentUpon>
+    <Compile Include="Lesson.aspx.cs">
+      <DependentUpon>Lesson.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MediaTutorial.aspx.designer.cs">
-      <DependentUpon>MediaTutorial.aspx</DependentUpon>
+    <Compile Include="Lesson.aspx.designer.cs">
+      <DependentUpon>Lesson.aspx</DependentUpon>
     </Compile>
     <Compile Include="navbar.Master.cs">
       <DependentUpon>navbar.Master</DependentUpon>
@@ -137,6 +150,13 @@
     </Compile>
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quiz.aspx.cs">
+      <DependentUpon>Quiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quiz.aspx.designer.cs">
+      <DependentUpon>Quiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="register.aspx.cs">
       <DependentUpon>register.aspx</DependentUpon>
