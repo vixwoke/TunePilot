@@ -7,10 +7,15 @@ namespace TunePilot
 {
     public partial class StudentDashboard : System.Web.UI.Page
     {
-        string connStr = ConfigurationManager.ConnectionStrings["databaseTunePilot"].ConnectionString;
+        string connStr = ConfigurationManager.ConnectionStrings["TunePilotDB"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["role"] == null)
+            {
+                Session["role"] = "guest";
+            }
+            RoleLabel.Text = Session["role"].ToString();
             if (!IsPostBack)
             {
                 Session["instrument"] = 1;

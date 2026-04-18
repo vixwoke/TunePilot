@@ -23,6 +23,7 @@
         <audio id="trumpetSound" preload="auto">
             <source src="/resources/studentDashboard/trumpetVoice.mp3" type="audio/mpeg" />
         </audio>
+        <asp:Label ID="RoleLabel" runat="server" Text=""></asp:Label>
 
         <!-- INSTRUMENT ICONS -->
         <div>
@@ -56,13 +57,9 @@
 
         <asp:LinkButton ID="MediaBtn1" runat="server" OnClick="SelectCourse" CommandArgument="1">
             <asp:Label ID="Media1" runat="server" Text="Beginner" /><br />
-        </asp:LinkButton>
-
-        <asp:LinkButton ID="MediaBtn2" runat="server" OnClick="SelectCourse" CommandArgument="2">
+        </asp:LinkButton><asp:LinkButton ID="MediaBtn2" runat="server" OnClick="SelectCourse" CommandArgument="2">
             <asp:Label ID="Media2" runat="server" Text="Casual" /><br />
-        </asp:LinkButton>
-
-        <asp:LinkButton ID="MediaBtn3" runat="server" OnClick="SelectCourse" CommandArgument="3">
+        </asp:LinkButton><asp:LinkButton ID="MediaBtn3" runat="server" OnClick="SelectCourse" CommandArgument="3">
             <asp:Label ID="Media3" runat="server" Text="Advance" />
         </asp:LinkButton><br />
 
@@ -80,9 +77,7 @@
         <hr />
 
         <!-- QUIZ -->
-        <h2>Quiz</h2>
-
-        <asp:LinkButton ID="QuizBtn1" runat="server" OnClick="SelectQuiz">
+        <h2>Quiz</h2><asp:LinkButton ID="QuizBtn1" runat="server" OnClick="SelectQuiz">
             <asp:Label ID="Quiz1" runat="server" Text="Quiz 1" /></asp:LinkButton><br />
         <asp:LinkButton ID="QuizBtn2" runat="server" OnClick="SelectQuiz">
             <asp:Label ID="Quiz2" runat="server" Text="Quiz 2" /></asp:LinkButton><br />
@@ -115,9 +110,7 @@
         <hr />
 
         <!-- EXAM -->
-        <h2>Exam</h2>
-
-        <asp:LinkButton ID="ExamBtn1" runat="server" OnClick="SelectExam">
+        <h2>Exam</h2><asp:LinkButton ID="ExamBtn1" runat="server" OnClick="SelectExam">
             <asp:Label ID="Exam1" runat="server" Text="Beginner" /></asp:LinkButton><br />
         <asp:LinkButton ID="ExamBtn2" runat="server" OnClick="SelectExam">
             <asp:Label ID="Exam2" runat="server" Text="Casual" /></asp:LinkButton><br />
@@ -125,9 +118,7 @@
             <asp:Label ID="Exam3" runat="server" Text="Advance" /></asp:LinkButton><br />
 
         <asp:Label ID="LabelExamAttempt" runat="server" Text="Exam Attempt: "></asp:Label><br />
-        <asp:Label ID="LabelExamScore" runat="server" Text="%"></asp:Label>
-
-        <asp:Image ID="ExamProgress1" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
+        <asp:Label ID="LabelExamScore" runat="server" Text="%"></asp:Label><asp:Image ID="ExamProgress1" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
         <asp:Image ID="ExamProgress2" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
         <asp:Image ID="ExamProgress3" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
 
