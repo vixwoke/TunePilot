@@ -16,20 +16,28 @@ namespace TunePilot
             {
                 Session["role"] = "guest";
             }
+
             RoleLabel.Text = Session["role"].ToString();
-            if (!IsPostBack)
+
+            if (Session["instrument"] == null)
             {
                 Session["instrument"] = 1;
+            }
+
+            if (!IsPostBack)
+            {
                 LoadAll();
                 ApplyGuestRestrictions();
-                SetActiveIcon(1);
-                return;
+                SetActiveIcon(Convert.ToInt32(Session["instrument"]));
             }
 
             if (Request["__EVENTTARGET"] == "InstrumentSelect")
             {
                 int instrumentId = Convert.ToInt32(Request["__EVENTARGUMENT"]);
+
                 Session["instrument"] = instrumentId;
+                Session["course"] = null;
+                Session["lesson"] = null;
 
                 LoadAll();
                 ApplyGuestRestrictions();
@@ -64,7 +72,6 @@ namespace TunePilot
                     LabelInstrumentName.Text = r["name"].ToString();
                     LabelCategory.Text = " ~ " + r["category"].ToString();
                     LabelDescription.Text = r["description"].ToString();
-                    
                 }
             }
         }
@@ -75,7 +82,7 @@ namespace TunePilot
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                string q = "SELECT title, difficulty_level FROM courses WHERE instrument_id=@id";
+                string q = "SELECT course_id, title, difficulty_level FROM courses WHERE instrument_id=@id";
                 SqlCommand cmd = new SqlCommand(q, con);
                 cmd.Parameters.AddWithValue("@id", instrument);
 
@@ -84,25 +91,31 @@ namespace TunePilot
 
                 while (r.Read())
                 {
+                    int courseId = Convert.ToInt32(r["course_id"]);
                     string level = r["difficulty_level"].ToString().ToLower();
+
                     if (level == "beginner")
                     {
                         Media1.Text = r["title"].ToString();
-                        Difficulty1.Text =" "+ r["difficulty_level"].ToString();
-                    }else if (level == "intermediate")
+                        Difficulty1.Text = " " + r["difficulty_level"].ToString();
+                        MediaBtn1.CommandArgument = courseId.ToString(); // ✅ FIX
+                    }
+                    else if (level == "intermediate")
                     {
                         Media2.Text = r["title"].ToString();
                         Difficulty2.Text = " " + r["difficulty_level"].ToString();
+                        MediaBtn2.CommandArgument = courseId.ToString(); // ✅ FIX
                     }
                     else if (level == "advanced")
                     {
                         Media3.Text = r["title"].ToString();
                         Difficulty3.Text = " " + r["difficulty_level"].ToString();
+                        MediaBtn3.CommandArgument = courseId.ToString(); // ✅ FIX
                     }
-                       
                 }
             }
         }
+
         void LoadProgress()
         {
             if (Session["role"] == null || Session["role"].ToString().ToLower() != "student")
@@ -137,7 +150,7 @@ namespace TunePilot
                 while (r.Read())
                 {
                     int courseId = Convert.ToInt32(r["course_id"]);
-                    int completed = Convert.ToInt32(r["completedLessons"]); // 0–3
+                    int completed = Convert.ToInt32(r["completedLessons"]);
 
                     courseProgress[courseId] = completed;
                 }
@@ -145,16 +158,16 @@ namespace TunePilot
                 ApplyProgressToUI(courseProgress);
             }
         }
+
         void ApplyProgressToUI(Dictionary<int, int> data)
         {
             Image[] squares =
             {
-        MediaProgress1, MediaProgress2, MediaProgress3,
-        MediaProgress4, MediaProgress5, MediaProgress6,
-        MediaProgress7, MediaProgress8, MediaProgress9
-    };
+                MediaProgress1, MediaProgress2, MediaProgress3,
+                MediaProgress4, MediaProgress5, MediaProgress6,
+                MediaProgress7, MediaProgress8, MediaProgress9
+            };
 
-            // reset all
             foreach (var sq in squares)
                 sq.ImageUrl = "~/resources/studentDashboard/square.png";
 
@@ -162,11 +175,11 @@ namespace TunePilot
 
             List<int> courseOrder = new List<int>();
 
-            if (instrumentId == 1) // guitar
+            if (instrumentId == 1)
                 courseOrder = new List<int> { 1, 2, 3 };
-            else if (instrumentId == 2) // drum
+            else if (instrumentId == 2)
                 courseOrder = new List<int> { 4, 5, 6 };
-            else if (instrumentId == 3) // trumpet
+            else if (instrumentId == 3)
                 courseOrder = new List<int> { 7, 8, 9 };
 
             for (int i = 0; i < courseOrder.Count; i++)
@@ -176,7 +189,7 @@ namespace TunePilot
                 if (!data.ContainsKey(courseId))
                     continue;
 
-                int completed = data[courseId]; // 0–3
+                int completed = data[courseId];
 
                 for (int j = 0; j < completed; j++)
                 {
@@ -244,7 +257,6 @@ namespace TunePilot
         GROUP BY e.exam_id, e.title, c.difficulty_level";
 
                 SqlCommand cmd = new SqlCommand(q, con);
-
                 cmd.Parameters.AddWithValue("@instrument", instrument);
 
                 if (Session["user_id"] != null)
@@ -318,7 +330,6 @@ namespace TunePilot
             {
                 con.Open();
 
-                // 1. Check if already enrolled
                 string checkQuery = @"
             SELECT COUNT(*) 
             FROM enrollments 
@@ -330,7 +341,6 @@ namespace TunePilot
 
                 int count = (int)checkCmd.ExecuteScalar();
 
-                // 2. If NOT enrolled → insert
                 if (count == 0)
                 {
                     string insertQuery = @"
@@ -348,7 +358,6 @@ namespace TunePilot
 
         void SetActiveIcon(int id)
         {
-            // Reset all first
             GuitarIcon.ImageUrl = ResolveUrl("~/resources/studentDashboard/guitar.jpg");
             DrumIcon.ImageUrl = ResolveUrl("~/resources/studentDashboard/drum.png");
             TrumpetIcon.ImageUrl = ResolveUrl("~/resources/studentDashboard/trumpet.jpg");
@@ -380,9 +389,6 @@ namespace TunePilot
 
             if (role == "guest")
             {
-                 //Exam sections
-
-                // Disable Quiz buttons
                 QuizBtn1.Enabled = false;
                 QuizBtn2.Enabled = false;
                 QuizBtn3.Enabled = false;
@@ -393,27 +399,15 @@ namespace TunePilot
                 QuizBtn8.Enabled = false;
                 QuizBtn9.Enabled = false;
 
-                // Disable Exam buttons
                 ExamBtn1.Enabled = false;
                 ExamBtn2.Enabled = false;
                 ExamBtn3.Enabled = false;
 
-                // Only allow Media 1
                 MediaBtn2.Enabled = false;
                 MediaBtn3.Enabled = false;
 
-                // Optional message
                 LoginUnlock.Text = "Login required to access quizzes and exams.";
             }
         }
-
-
     }
 }
-
-
-//session role
-// session instrument
-//session course
-// session quiz
-// session exam
