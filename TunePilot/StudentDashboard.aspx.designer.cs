@@ -114,6 +114,15 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.Label Media1;
 
         /// <summary>
+        /// Difficulty1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Difficulty1;
+
+        /// <summary>
         /// MediaBtn2 control.
         /// </summary>
         /// <remarks>
@@ -132,6 +141,15 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.Label Media2;
 
         /// <summary>
+        /// Difficulty2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Difficulty2;
+
+        /// <summary>
         /// MediaBtn3 control.
         /// </summary>
         /// <remarks>
@@ -148,6 +166,15 @@ namespace TunePilot
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Media3;
+
+        /// <summary>
+        /// Difficulty3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Difficulty3;
 
         /// <summary>
         /// MediaProgress1 control.
@@ -393,87 +420,6 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.Label Quiz9;
 
         /// <summary>
-        /// QuizProgress1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress1;
-
-        /// <summary>
-        /// QuizProgress2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress2;
-
-        /// <summary>
-        /// QuizProgress3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress3;
-
-        /// <summary>
-        /// QuizProgress4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress4;
-
-        /// <summary>
-        /// QuizProgress5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress5;
-
-        /// <summary>
-        /// QuizProgress6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress6;
-
-        /// <summary>
-        /// QuizProgress7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress7;
-
-        /// <summary>
-        /// QuizProgress8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress8;
-
-        /// <summary>
-        /// QuizProgress9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image QuizProgress9;
-
-        /// <summary>
         /// ExamBtn1 control.
         /// </summary>
         /// <remarks>
@@ -490,6 +436,24 @@ namespace TunePilot
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Exam1;
+
+        /// <summary>
+        /// LabelExamAttempt1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelExamAttempt1;
+
+        /// <summary>
+        /// LabelExamScore1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelExamScore1;
 
         /// <summary>
         /// ExamBtn2 control.
@@ -510,6 +474,24 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.Label Exam2;
 
         /// <summary>
+        /// LabelExamAttempt2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelExamAttempt2;
+
+        /// <summary>
+        /// LabelExamScore2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelExamScore2;
+
+        /// <summary>
         /// ExamBtn3 control.
         /// </summary>
         /// <remarks>
@@ -528,48 +510,30 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.Label Exam3;
 
         /// <summary>
-        /// LabelExamAttempt control.
+        /// LabelExamAttempt3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelExamAttempt;
+        protected global::System.Web.UI.WebControls.Label LabelExamAttempt3;
 
         /// <summary>
-        /// LabelExamScore control.
+        /// LabelExamScore3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelExamScore;
+        protected global::System.Web.UI.WebControls.Label LabelExamScore3;
 
         /// <summary>
-        /// ExamProgress1 control.
+        /// LoginUnlock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ExamProgress1;
-
-        /// <summary>
-        /// ExamProgress2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ExamProgress2;
-
-        /// <summary>
-        /// ExamProgress3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ExamProgress3;
+        protected global::System.Web.UI.WebControls.Label LoginUnlock;
     }
 }

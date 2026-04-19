@@ -54,14 +54,19 @@
         <hr />
 
         <!-- MEDIA -->
-        <h2>Media Tutorial</h2>
+        <h2>Lesson</h2>
 
         <asp:LinkButton ID="MediaBtn1" runat="server" OnClick="SelectCourse" CommandArgument="1">
-            <asp:Label ID="Media1" runat="server" Text="Beginner" /><br />
-        </asp:LinkButton><asp:LinkButton ID="MediaBtn2" runat="server" OnClick="SelectCourse" CommandArgument="2">
-            <asp:Label ID="Media2" runat="server" Text="Casual" /><br />
-        </asp:LinkButton><asp:LinkButton ID="MediaBtn3" runat="server" OnClick="SelectCourse" CommandArgument="3">
+            <asp:Label ID="Media1" runat="server" Text="Beginner" />
+            <asp:Label ID="Difficulty1" runat="server" Text="Beginner" />
+        </asp:LinkButton><br />
+        <asp:LinkButton ID="MediaBtn2" runat="server" OnClick="SelectCourse" CommandArgument="2">
+            <asp:Label ID="Media2" runat="server" Text="Casual" />
+             <asp:Label ID="Difficulty2" runat="server" Text="Beginner" />
+        </asp:LinkButton><br />
+        <asp:LinkButton ID="MediaBtn3" runat="server" OnClick="SelectCourse" CommandArgument="3">
             <asp:Label ID="Media3" runat="server" Text="Advance" />
+            <asp:Label ID="Difficulty3" runat="server" Text="Beginner" />
         </asp:LinkButton><br />
 
         <!-- MEDIA PROGRESS -->
@@ -97,31 +102,28 @@
         <asp:LinkButton ID="QuizBtn9" runat="server" OnClick="SelectQuiz">
             <asp:Label ID="Quiz9" runat="server" Text="Quiz 9" /></asp:LinkButton><br />
 
-        <!-- QUIZ PROGRESS -->
-        <asp:Image ID="QuizProgress1" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress2" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress3" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress4" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress5" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress6" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress7" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress8" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="QuizProgress9" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
 
         <hr />
 
         <!-- EXAM -->
         <h2>Exam</h2><asp:LinkButton ID="ExamBtn1" runat="server" OnClick="SelectExam">
-            <asp:Label ID="Exam1" runat="server" Text="Beginner" /></asp:LinkButton><br />
-        <asp:LinkButton ID="ExamBtn2" runat="server" OnClick="SelectExam">
-            <asp:Label ID="Exam2" runat="server" Text="Casual" /></asp:LinkButton><br />
-        <asp:LinkButton ID="ExamBtn3" runat="server" OnClick="SelectExam">
-            <asp:Label ID="Exam3" runat="server" Text="Advance" /></asp:LinkButton><br />
+            <asp:Label ID="Exam1" runat="server" Text="Beginner" /></asp:LinkButton>
+                <asp:Label ID="LabelExamAttempt1" runat="server" Text="Exam Attempt: "></asp:Label>
+        <asp:Label ID="LabelExamScore1" runat="server" Text="%"></asp:Label><br />
 
-        <asp:Label ID="LabelExamAttempt" runat="server" Text="Exam Attempt: "></asp:Label><br />
-        <asp:Label ID="LabelExamScore" runat="server" Text="%"></asp:Label><asp:Image ID="ExamProgress1" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="ExamProgress2" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="ExamProgress3" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
+        <asp:LinkButton ID="ExamBtn2" runat="server" OnClick="SelectExam">
+            <asp:Label ID="Exam2" runat="server" Text="Casual" /></asp:LinkButton>
+                        <asp:Label ID="LabelExamAttempt2" runat="server" Text="Exam Attempt: "></asp:Label>
+        <asp:Label ID="LabelExamScore2" runat="server" Text="%"></asp:Label><br />
+
+        <asp:LinkButton ID="ExamBtn3" runat="server" OnClick="SelectExam">
+            <asp:Label ID="Exam3" runat="server" Text="Advance" /></asp:LinkButton>
+                        <asp:Label ID="LabelExamAttempt3" runat="server" Text="Exam Attempt: "></asp:Label>
+        <asp:Label ID="LabelExamScore3" runat="server" Text="%"></asp:Label><br />
+
+
+        <a href="login.aspx"><asp:Label ID="LoginUnlock" runat="server" Text=""></asp:Label><br /></a>
+
 
     </form>
 
