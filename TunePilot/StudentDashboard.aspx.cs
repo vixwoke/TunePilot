@@ -98,19 +98,19 @@ namespace TunePilot
                     {
                         Media1.Text = r["title"].ToString();
                         Difficulty1.Text = " " + r["difficulty_level"].ToString();
-                        MediaBtn1.CommandArgument = courseId.ToString(); // ✅ FIX
+                        MediaBtn1.CommandArgument = courseId.ToString(); 
                     }
                     else if (level == "intermediate")
                     {
                         Media2.Text = r["title"].ToString();
                         Difficulty2.Text = " " + r["difficulty_level"].ToString();
-                        MediaBtn2.CommandArgument = courseId.ToString(); // ✅ FIX
+                        MediaBtn2.CommandArgument = courseId.ToString(); 
                     }
                     else if (level == "advanced")
                     {
                         Media3.Text = r["title"].ToString();
                         Difficulty3.Text = " " + r["difficulty_level"].ToString();
-                        MediaBtn3.CommandArgument = courseId.ToString(); // ✅ FIX
+                        MediaBtn3.CommandArgument = courseId.ToString(); 
                     }
                 }
             }

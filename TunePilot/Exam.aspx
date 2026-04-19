@@ -9,6 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <!-- session["user_id"] from login, session instrument will decide the exam link and the exam link after click will set session["exam"] use session[exam] to fetch information in exams table -->
         </div>
     </form>
 </body>
