@@ -4,147 +4,161 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Student Dashboard</title>
+
+    <style>
+
+        .instrument-icon {
+            width: 80px;
+            border: 2px solid gray;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .course-title {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .progress-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+        }
+
+        .locked-text {
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+
 </head>
 <body>
-    <form id="form1" runat="server">
 
-        <!-- Hidden field -->
-        <asp:HiddenField ID="HiddenInstrument" runat="server" />
+<form id="form1" runat="server">
 
-        <!-- AUDIO -->
-        <audio id="guitarSound" preload="auto">
-            <source src="/resources/studentDashboard/guitarVoice.mp3" type="audio/mpeg" />
-        </audio>
+    <asp:Label ID="RoleLabel" runat="server"></asp:Label>
 
-        <audio id="drumSound" preload="auto">
-            <source src="/resources/studentDashboard/drumsVoice.mp3" type="audio/mpeg" />
-        </audio>
+    <hr />
 
-        <audio id="trumpetSound" preload="auto">
-            <source src="/resources/studentDashboard/trumpetVoice.mp3" type="audio/mpeg" />
-        </audio>
-        <asp:Label ID="RoleLabel" runat="server" Text=""></asp:Label>
+    <!-- AUDIO -->
+    <audio id="guitarSound" preload="auto">
+        <source src="/resources/studentDashboard/guitarVoice.mp3" type="audio/mpeg" />
+    </audio>
 
-        <!-- INSTRUMENT ICONS -->
-        <div>
-            <asp:Image ID="GuitarIcon" runat="server"
-                ImageUrl="/resources/studentDashboard/guitar1.png"
-                Width="80px"
-                Style="border: 2px solid gray"
-                onclick="selectInstrument(1)" />
+    <audio id="drumSound" preload="auto">
+        <source src="/resources/studentDashboard/drumsVoice.mp3" type="audio/mpeg" />
+    </audio>
 
-            <asp:Image ID="DrumIcon" runat="server"
-                ImageUrl="/resources/studentDashboard/drum.png"
-                Width="80px"
-                Style="border: 2px solid gray"
-                onclick="selectInstrument(2)" />
+    <audio id="trumpetSound" preload="auto">
+        <source src="/resources/studentDashboard/trumpetVoice.mp3" type="audio/mpeg" />
+    </audio>
 
-            <asp:Image ID="TrumpetIcon" runat="server"
-                ImageUrl="/resources/studentDashboard/trumpet.jpg"
-                Width="80px"
-                Style="border: 2px solid gray"
-                onclick="selectInstrument(3)" />
-        </div>
+    <!-- INSTRUMENT -->
+    <div>
 
-        <!-- Instrument Info -->
-        <asp:Label ID="LabelInstrumentName" runat="server"></asp:Label>
-        <asp:Label ID="LabelCategory" runat="server" ></asp:Label><br />
-        <asp:Label ID="LabelDescription" runat="server"></asp:Label>
+        <asp:Image ID="GuitarIcon"
+            runat="server"
+            CssClass="instrument-icon"
+            ImageUrl="/resources/studentDashboard/guitar1.png"
+            onclick="selectInstrument(1)" />
 
-        <hr />
+        <asp:Image ID="DrumIcon"
+            runat="server"
+            CssClass="instrument-icon"
+            ImageUrl="/resources/studentDashboard/drum.png"
+            onclick="selectInstrument(2)" />
 
-        <!-- MEDIA -->
-        <h2>Lesson</h2>
+        <asp:Image ID="TrumpetIcon"
+            runat="server"
+            CssClass="instrument-icon"
+            ImageUrl="/resources/studentDashboard/trumpet.jpg"
+            onclick="selectInstrument(3)" />
 
-        <asp:LinkButton ID="MediaBtn1" runat="server" OnClick="SelectCourse" CommandArgument="1">
-            <asp:Label ID="Media1" runat="server" Text="Beginner" />
-            <asp:Label ID="Difficulty1" runat="server" Text="Beginner" />
-        </asp:LinkButton><br />
-        <asp:LinkButton ID="MediaBtn2" runat="server" OnClick="SelectCourse" CommandArgument="2">
-            <asp:Label ID="Media2" runat="server" Text="Casual" />
-             <asp:Label ID="Difficulty2" runat="server" Text="Beginner" />
-        </asp:LinkButton><br />
-        <asp:LinkButton ID="MediaBtn3" runat="server" OnClick="SelectCourse" CommandArgument="3">
-            <asp:Label ID="Media3" runat="server" Text="Advance" />
-            <asp:Label ID="Difficulty3" runat="server" Text="Beginner" />
-        </asp:LinkButton><br />
+    </div>
 
-        <!-- MEDIA PROGRESS -->
-        <asp:Image ID="MediaProgress1" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress2" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress3" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress4" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress5" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress6" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress7" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress8" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
-        <asp:Image ID="MediaProgress9" runat="server" ImageUrl="~/resources/studentDashboard/square.png" Height="148px" Width="157px" />
+    <br />
 
-        <hr />
+    <!-- INSTRUMENT INFO -->
+    <asp:Label ID="LabelInstrumentName" runat="server"></asp:Label>
 
-        <!-- QUIZ -->
-        <h2>Quiz</h2><asp:LinkButton ID="QuizBtn1" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz1" runat="server" Text="Quiz 1" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn2" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz2" runat="server" Text="Quiz 2" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn3" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz3" runat="server" Text="Quiz 3" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn4" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz4" runat="server" Text="Quiz 4" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn5" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz5" runat="server" Text="Quiz 5" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn6" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz6" runat="server" Text="Quiz 6" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn7" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz7" runat="server" Text="Quiz 7" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn8" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz8" runat="server" Text="Quiz 8" /></asp:LinkButton><br />
-        <asp:LinkButton ID="QuizBtn9" runat="server" OnClick="SelectQuiz">
-            <asp:Label ID="Quiz9" runat="server" Text="Quiz 9" /></asp:LinkButton><br />
+    <asp:Label ID="LabelCategory" runat="server"></asp:Label>
 
+    <br /><br />
 
-        <hr />
+    <asp:Label ID="LabelDescription" runat="server"></asp:Label>
 
-        <!-- EXAM -->
-        <h2>Exam</h2><asp:LinkButton ID="ExamBtn1" runat="server" OnClick="SelectExam">
-            <asp:Label ID="Exam1" runat="server" Text="Beginner" /></asp:LinkButton>
-                <asp:Label ID="LabelExamAttempt1" runat="server" Text="Exam Attempt: "></asp:Label>
-        <asp:Label ID="LabelExamScore1" runat="server" Text="%"></asp:Label><br />
+    <hr />
 
-        <asp:LinkButton ID="ExamBtn2" runat="server" OnClick="SelectExam">
-            <asp:Label ID="Exam2" runat="server" Text="Casual" /></asp:LinkButton>
-                        <asp:Label ID="LabelExamAttempt2" runat="server" Text="Exam Attempt: "></asp:Label>
-        <asp:Label ID="LabelExamScore2" runat="server" Text="%"></asp:Label><br />
+    <!-- LESSON -->
+    <h2>Lessons</h2>
 
-        <asp:LinkButton ID="ExamBtn3" runat="server" OnClick="SelectExam">
-            <asp:Label ID="Exam3" runat="server" Text="Advance" /></asp:LinkButton>
-                        <asp:Label ID="LabelExamAttempt3" runat="server" Text="Exam Attempt: "></asp:Label>
-        <asp:Label ID="LabelExamScore3" runat="server" Text="%"></asp:Label><br />
+    <asp:PlaceHolder ID="LessonContainer" runat="server"></asp:PlaceHolder>
 
+    <br />
 
-        <a href="login.aspx"><asp:Label ID="LoginUnlock" runat="server" Text=""></asp:Label><br /></a>
+    <asp:PlaceHolder ID="LessonProgressContainer" runat="server"></asp:PlaceHolder>
 
+    <hr />
 
-    </form>
+    <!-- QUIZ -->
+    <h2>Quizzes</h2>
 
-    <script>
-        function selectInstrument(id) {
+    <asp:PlaceHolder ID="QuizContainer" runat="server"></asp:PlaceHolder>
 
-            let sounds = ["guitarSound", "drumSound", "trumpetSound"];
-            let audio = document.getElementById(sounds[id - 1]);
+    <br />
 
-            if (audio) {
-                audio.pause();
-                audio.currentTime = 0;
-                audio.play();
-            }
+    <asp:PlaceHolder ID="QuizProgressContainer" runat="server"></asp:PlaceHolder>
 
-            // Delay postback 2 seconds
-            setTimeout(function () {
-                __doPostBack("InstrumentSelect", id);
-            }, 1300);
+    <hr />
+
+    <!-- EXAM -->
+    <h2>Exams</h2>
+
+    <asp:PlaceHolder ID="ExamContainer" runat="server"></asp:PlaceHolder>
+
+    <br />
+
+    <asp:PlaceHolder ID="ExamProgressContainer" runat="server"></asp:PlaceHolder>
+
+    <br /><br />
+
+    <!-- LOGIN -->
+    <asp:HyperLink
+        ID="LoginUnlock"
+        runat="server"
+        NavigateUrl="~/Login.aspx"
+        CssClass="locked-text">
+    </asp:HyperLink>
+
+</form>
+
+<script>
+
+    function selectInstrument(id) {
+        let sounds =
+            [
+                "guitarSound",
+                "drumSound",
+                "trumpetSound"
+            ];
+
+        let audio =
+            document.getElementById(sounds[id - 1]);
+
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+            audio.play();
         }
-    </script>
+
+        setTimeout(function () {
+            __doPostBack("InstrumentSelect", id);
+        }, 1300);
+    }
+
+</script>
 
 </body>
 </html>

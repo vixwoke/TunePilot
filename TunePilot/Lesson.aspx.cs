@@ -1,344 +1,760 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Configuration;
-using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace TunePilot
 {
+    
     public partial class Lesson : System.Web.UI.Page
     {
-        string connStr = ConfigurationManager.ConnectionStrings["TunePilotDB"].ConnectionString;
+        string connStr =
+        ConfigurationManager
+        .ConnectionStrings["TunePilotDB"]
+        .ConnectionString;
 
-        protected void Page_Load(object sender, EventArgs e)
+
+    protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["course"] == null)
+            if (Session["course"] == null
+                || Session["lesson"] == null)
             {
-                Response.Redirect("StudentDashboard.aspx");
+                Response.Redirect(
+                    "StudentDashboard.aspx");
+
                 return;
             }
+
 
             if (!IsPostBack)
             {
+                ValidateCourseLesson();
+
                 LoadCourseInfo();
-                LoadLessonButtons();
 
-                if (Session["lesson"] == null)
+                LoadLessonDetail();
+
+                EnsureProgress();
+
+                UpdateCompleteButton();
+            }
+            LoadLessons();
+        }
+
+        // =====================================================
+        // SECURITY CHECK
+        // =====================================================
+
+        void ValidateCourseLesson()
+        {
+            int courseId =
+                Convert.ToInt32(
+                    Session["course"]);
+
+            int lessonId =
+                Convert.ToInt32(
+                    Session["lesson"]);
+
+            using (SqlConnection con =
+                new SqlConnection(connStr))
+            {
+                SqlCommand cmd =
+                    new SqlCommand(@"
+
+                SELECT COUNT(*)
+
+                FROM lessons
+
+                WHERE lesson_id=@l
+                AND course_id=@c", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@l",
+                    lessonId);
+
+                cmd.Parameters.AddWithValue(
+                    "@c",
+                    courseId);
+
+                con.Open();
+
+                int ok =
+                    (int)cmd.ExecuteScalar();
+
+                if (ok == 0)
                 {
-                    Session["lesson"] = GetLessonIdByOrder(1);
+                    Session["lesson"] =
+                        GetFirstLesson(courseId);
                 }
-
-                LoadLesson();
             }
         }
+
+        int GetFirstLesson(int courseId)
+        {
+            using (SqlConnection con =
+                new SqlConnection(connStr))
+            {
+                SqlCommand cmd =
+                    new SqlCommand(@"
+
+                SELECT TOP 1 lesson_id
+
+                FROM lessons
+
+                WHERE course_id=@c
+
+                ORDER BY lesson_order", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@c",
+                    courseId);
+
+                con.Open();
+
+                object r =
+                    cmd.ExecuteScalar();
+
+                return Convert.ToInt32(r);
+            }
+        }
+
+        // =====================================================
+        // LOAD WHOLE PAGE
+        // =====================================================
+
+        void LoadPage()
+        {
+            LoadCourseInfo();
+
+            LoadLessons();
+
+            LoadLessonDetail();
+
+            UpdateCompleteButton();
+        }
+
+        // =====================================================
+        // COURSE INFO
+        // =====================================================
 
         void LoadCourseInfo()
         {
-            int courseId = Convert.ToInt32(Session["course"]);
-
-            using (SqlConnection con = new SqlConnection(connStr))
+            using (SqlConnection con =
+                new SqlConnection(connStr))
             {
-                string q = @"SELECT i.name, c.difficulty_level
-                             FROM courses c
-                             JOIN instruments i ON c.instrument_id = i.instrument_id
-                             WHERE c.course_id=@id";
+                SqlCommand cmd =
+                    new SqlCommand(@"
 
-                SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@id", courseId);
+                SELECT
+                    i.name,
+                    c.difficulty_level
+
+                FROM courses c
+
+                JOIN instruments i
+                    ON c.instrument_id=i.instrument_id
+
+                WHERE c.course_id=@id", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@id",
+                    Session["course"]);
 
                 con.Open();
-                SqlDataReader r = cmd.ExecuteReader();
+
+                SqlDataReader r =
+                    cmd.ExecuteReader();
 
                 if (r.Read())
                 {
-                    LabelInstrument.Text = r["name"].ToString();
-                    LabelInstrumentDifficult.Text = r["difficulty_level"].ToString();
+                    LabelInstrument.Text =
+                        r["name"].ToString();
+
+                    LabelLevel.Text =
+                        r["difficulty_level"].ToString();
                 }
             }
         }
 
+        // =====================================================
+        // LESSON LIST
+        // =====================================================
 
-        void LoadLessonButtons()
+        void LoadLessons()
         {
-            int courseId = Convert.ToInt32(Session["course"]);
+            LessonContainer.Controls.Clear();
 
-            using (SqlConnection con = new SqlConnection(connStr))
+            int courseId =
+                Convert.ToInt32(
+                    Session["course"]);
+
+            int currentLesson =
+                Convert.ToInt32(
+                    Session["lesson"]);
+
+            using (SqlConnection con =
+                new SqlConnection(connStr))
             {
-                string q = @"SELECT lesson_id, title, lesson_order
-                             FROM lessons
-                             WHERE course_id=@id
-                             ORDER BY lesson_order";
+                SqlCommand cmd =
+                    new SqlCommand(@"
 
-                SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@id", courseId);
+                SELECT
+                    l.lesson_id,
+                    l.title,
+                    l.lesson_order,
+
+                    ISNULL(
+                        p.status,
+                        ''
+                    ) AS status
+
+                FROM lessons l
+
+                LEFT JOIN progress p
+                    ON p.lesson_id=l.lesson_id
+                    AND p.user_id=@u
+
+                WHERE l.course_id=@c
+
+                ORDER BY l.lesson_order", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@c",
+                    courseId);
+
+                cmd.Parameters.AddWithValue(
+                    "@u",
+                    Session["user_id"] ?? 0);
 
                 con.Open();
-                SqlDataReader r = cmd.ExecuteReader();
+
+                SqlDataReader r =
+                    cmd.ExecuteReader();
 
                 while (r.Read())
                 {
-                    int order = Convert.ToInt32(r["lesson_order"]);
-                    string title = r["title"].ToString();
-                    int lessonId = Convert.ToInt32(r["lesson_id"]);
+                    int lessonId =
+                        Convert.ToInt32(
+                            r["lesson_id"]);
 
-                    if (order == 1)
+                    string title =
+                        r["title"].ToString();
+
+                    string status =
+                        r["status"].ToString();
+
+                    LinkButton btn =
+                        new LinkButton();
+
+                    btn.Text = title;
+
+                    btn.CommandArgument =
+                        lessonId.ToString();
+
+                    btn.Click += SelectLesson;
+
+                    string cls =
+                        "lesson-btn ";
+
+                    if (lessonId == currentLesson)
                     {
-                        Tutorial1.Text = title;
-                        Tutorial1.CommandArgument = lessonId.ToString();
+                        cls += "current";
                     }
-                    else if (order == 2)
+                    else if (status == "completed")
                     {
-                        Tutorial2.Text = title;
-                        Tutorial2.CommandArgument = lessonId.ToString();
+                        cls += "completed";
                     }
-                    else if (order == 3)
+                    else
                     {
-                        Tutorial3.Text = title;
-                        Tutorial3.CommandArgument = lessonId.ToString();
+                        cls += "normal";
                     }
+
+                    btn.CssClass = cls;
+
+                    LessonContainer.Controls.Add(btn);
+
+                    LessonContainer.Controls.Add(
+                        new LiteralControl("<br/>"));
+
                 }
             }
         }
 
-        void LoadLesson()
+        // =====================================================
+        // LOAD CURRENT LESSON
+        // =====================================================
+
+        void LoadLessonDetail()
         {
-            if (Session["lesson"] == null) return;
+            int lessonId =
+                Convert.ToInt32(
+                    Session["lesson"]);
 
-            int lessonId = Convert.ToInt32(Session["lesson"]);
-
-            LoadLessonInfo(lessonId);
-            LoadContents(lessonId);
-            LoadVideo(lessonId);
-            SetCompleteButton();
-            HighlightSelectedLesson();
-        }
-
-
-        void LoadLessonInfo(int lessonId)
-        {
-            using (SqlConnection con = new SqlConnection(connStr))
+            using (SqlConnection con =
+                new SqlConnection(connStr))
             {
-                string q = @"SELECT title, summary, duration_minutes
-                             FROM lessons
-                             WHERE lesson_id=@id";
+                SqlCommand cmd =
+                    new SqlCommand(@"
 
-                SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@id", lessonId);
+                SELECT
+                    title,
+                    summary,
+                    duration_minutes
+
+                FROM lessons
+
+                WHERE lesson_id=@id", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@id",
+                    lessonId);
 
                 con.Open();
-                SqlDataReader r = cmd.ExecuteReader();
+
+                SqlDataReader r =
+                    cmd.ExecuteReader();
 
                 if (r.Read())
                 {
-                    LabelLessonIndex.Text = r["title"].ToString();
-                    LabelLessonDescription.Text = r["summary"].ToString();
-                    LabelDuration.Text = r["duration_minutes"] + " min";
+                    LessonTitle.Text =
+                        r["title"].ToString();
+
+                    LessonDesc.Text =
+                        r["summary"].ToString();
+
+                    LessonDuration.Text =
+                        r["duration_minutes"]
+                        + " min";
                 }
             }
+
+            LoadLessonContents();
+
+            LoadVideo(lessonId);
         }
 
+        // =====================================================
+        // LESSON RESOURCES
+        // =====================================================
 
-        void LoadContents(int lessonId)
+        void LoadLessonContents()
         {
-            HyperLink[] links = { Label1, Label2, Label3, Label4, Label5 };
+            ContentContainer.Controls.Clear();
 
-            foreach (var l in links)
-                l.Text = "";
+            int lessonId =
+                Convert.ToInt32(
+                    Session["lesson"]);
 
-            using (SqlConnection con = new SqlConnection(connStr))
+            using (SqlConnection con =
+                new SqlConnection(connStr))
             {
-                string q = @"SELECT title, media_url
-                             FROM lesson_contents
-                             WHERE lesson_id=@id
-                             AND content_type NOT IN ('text','video')
-                             ORDER BY content_order";
+                SqlCommand cmd =
+                    new SqlCommand(@"
 
-                SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@id", lessonId);
+                SELECT
+                    title,
+                    media_url,
+                    content_type
+
+                FROM lesson_contents
+
+                WHERE lesson_id=@id
+
+                ORDER BY content_id", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@id",
+                    lessonId);
 
                 con.Open();
-                SqlDataReader r = cmd.ExecuteReader();
 
-                int i = 0;
-                while (r.Read() && i < links.Length)
+                SqlDataReader r =
+                    cmd.ExecuteReader();
+
+                while (r.Read())
                 {
-                    links[i].Text = r["title"].ToString()+" "+r["media_url"].ToString();
-                    links[i].NavigateUrl = r["media_url"].ToString();
-                    links[i].Target = "_blank";
-                    i++;
+                    string title =
+                        r["title"].ToString();
+
+                    string url =
+                        r["media_url"].ToString();
+
+                    string type =
+                        r["content_type"].ToString();
+
+                    // skip mp4 because shown below
+                    if (type == "video")
+                        continue;
+
+                    HyperLink link =
+                        new HyperLink();
+
+                    link.Text =
+                        title
+                        + " ("
+                        + type
+                        + ")"
+                        +url;
+
+                    link.NavigateUrl = url;
+
+                    link.Target = "_blank";
+
+                    ContentContainer.Controls.Add(link);
+
+                    ContentContainer.Controls.Add(
+                        new LiteralControl("<br/>"));
                 }
             }
         }
 
+        // =====================================================
+        // VIDEO
+        // =====================================================
 
         void LoadVideo(int lessonId)
         {
-            using (SqlConnection con = new SqlConnection(connStr))
-            {
-                string q = @"SELECT media_url
-                             FROM lesson_contents
-                             WHERE lesson_id=@id
-                             AND content_type='video'";
+            VideoPlayer.Controls.Clear();
 
-                SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@id", lessonId);
+            using (SqlConnection con =
+                new SqlConnection(connStr))
+            {
+                SqlCommand cmd =
+                    new SqlCommand(@"
+
+                SELECT TOP 1 media_url
+
+                FROM lesson_contents
+
+                WHERE lesson_id=@id
+                AND content_type='video'", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@id",
+                    lessonId);
 
                 con.Open();
-                object result = cmd.ExecuteScalar();
 
-                if (result != null)
+                object url =
+                    cmd.ExecuteScalar();
+
+                if (url != null)
                 {
-                    VideoPlayer.InnerHtml = $"<source src='{result}' type='video/mp4' />";
+                    VideoPlayer.Controls.Add(
+                        new LiteralControl(
+                            "<source src='"
+                            + url.ToString()
+                            + "' type='video/mp4' />"));
                 }
             }
         }
 
+        // =====================================================
+        // ENSURE PROGRESS
+        // =====================================================
 
-        protected void ToggleComplete(object sender, EventArgs e)
+        void EnsureProgress()
         {
-            if (Session["user_id"] == null || Session["lesson"] == null)
+            if (Session["role"].ToString()
+                == "guest")
+            {
                 return;
+            }
 
-            int userId = Convert.ToInt32(Session["user_id"]);
-            int lessonId = Convert.ToInt32(Session["lesson"]);
+            int userId =
+                Convert.ToInt32(
+                    Session["user_id"]);
 
-            using (SqlConnection con = new SqlConnection(connStr))
+            int lessonId =
+                Convert.ToInt32(
+                    Session["lesson"]);
+
+            using (SqlConnection con =
+                new SqlConnection(connStr))
             {
                 con.Open();
 
-                string check = @"SELECT COUNT(*) FROM progress
-                                 WHERE user_id=@u AND lesson_id=@l";
+                SqlCommand cmd =
+                    new SqlCommand(@"
 
-                SqlCommand cmd = new SqlCommand(check, con);
-                cmd.Parameters.AddWithValue("@u", userId);
-                cmd.Parameters.AddWithValue("@l", lessonId);
+                IF NOT EXISTS
+                (
+                    SELECT 1
+                    FROM progress
+                    WHERE user_id=@u
+                    AND lesson_id=@l
+                )
 
-                int exists = (int)cmd.ExecuteScalar();
+                INSERT INTO progress
+                (
+                    user_id,
+                    lesson_id,
+                    status
+                )
+                VALUES
+                (
+                    @u,
+                    @l,
+                    'in progress'
+                )", con);
 
-                if (exists == 0)
+                cmd.Parameters.AddWithValue(
+                    "@u",
+                    userId);
+
+                cmd.Parameters.AddWithValue(
+                    "@l",
+                    lessonId);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // =====================================================
+        // COMPLETE BUTTON
+        // =====================================================
+
+        void UpdateCompleteButton()
+        {
+            if (Session["role"].ToString()
+                == "guest")
+            {
+                CompleteBtn.Visible = false;
+
+                return;
+            }
+
+            using (SqlConnection con =
+                new SqlConnection(connStr))
+            {
+                SqlCommand cmd =
+                    new SqlCommand(@"
+
+                SELECT status
+
+                FROM progress
+
+                WHERE user_id=@u
+                AND lesson_id=@l", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@u",
+                    Session["user_id"]);
+
+                cmd.Parameters.AddWithValue(
+                    "@l",
+                    Session["lesson"]);
+
+                con.Open();
+
+                object r =
+                    cmd.ExecuteScalar();
+
+                if (r != null
+                    &&
+                    r.ToString() == "completed")
                 {
-                    SqlCommand ins = new SqlCommand(
-                        "INSERT INTO progress (user_id, lesson_id, status) VALUES (@u,@l,'completed')", con);
+                    CompleteBtn.Text =
+                        "Completed";
 
-                    ins.Parameters.AddWithValue("@u", userId);
-                    ins.Parameters.AddWithValue("@l", lessonId);
-                    ins.ExecuteNonQuery();
-
-                    Complete.ForeColor = Color.Green;
+                    CompleteBtn.ForeColor =
+                        Color.Green;
                 }
                 else
                 {
-                    SqlCommand del = new SqlCommand(
-                        "DELETE FROM progress WHERE user_id=@u AND lesson_id=@l", con);
+                    CompleteBtn.Text =
+                        "Complete";
 
-                    del.Parameters.AddWithValue("@u", userId);
-                    del.Parameters.AddWithValue("@l", lessonId);
-                    del.ExecuteNonQuery();
-
-                    Complete.ForeColor = Color.Black;
+                    CompleteBtn.ForeColor =
+                        Color.Black;
                 }
             }
         }
 
-        void SetCompleteButton()
+        // =====================================================
+        // SELECT LESSON
+        // =====================================================
+
+        protected void SelectLesson(
+            object sender,
+            EventArgs e)
         {
-            if (Session["user_id"] == null || Session["lesson"] == null)
+            LinkButton btn =
+                (LinkButton)sender;
+
+            Session["lesson"] =
+                btn.CommandArgument;
+
+            EnsureProgress();
+
+            LoadPage();
+        }
+
+        // =====================================================
+        // NEXT / PREV
+        // =====================================================
+
+        protected void Next_Click(
+            object sender,
+            EventArgs e)
+        {
+            Session["lesson"] =
+                GetNextLesson();
+
+            EnsureProgress();
+
+            LoadPage();
+        }
+
+        protected void Prev_Click(
+            object sender,
+            EventArgs e)
+        {
+            Session["lesson"] =
+                GetPrevLesson();
+
+            EnsureProgress();
+
+            LoadPage();
+        }
+
+        int GetNextLesson()
+        {
+            return GetAdjacentLesson(">");
+        }
+
+        int GetPrevLesson()
+        {
+            return GetAdjacentLesson("<");
+        }
+
+        int GetAdjacentLesson(string dir)
+        {
+            int courseId =
+                Convert.ToInt32(
+                    Session["course"]);
+
+            int lessonId =
+                Convert.ToInt32(
+                    Session["lesson"]);
+
+            using (SqlConnection con =
+                new SqlConnection(connStr))
+            {
+                string op =
+                    dir == ">"
+                    ? ">"
+                    : "<";
+
+                string order =
+                    dir == ">"
+                    ? "ASC"
+                    : "DESC";
+
+                SqlCommand cmd =
+                    new SqlCommand($@"
+
+                SELECT TOP 1 lesson_id
+
+                FROM lessons
+
+                WHERE course_id=@c
+
+                AND lesson_order {op}
+                (
+                    SELECT lesson_order
+                    FROM lessons
+                    WHERE lesson_id=@l
+                )
+
+                ORDER BY lesson_order {order}", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@c",
+                    courseId);
+
+                cmd.Parameters.AddWithValue(
+                    "@l",
+                    lessonId);
+
+                con.Open();
+
+                object r =
+                    cmd.ExecuteScalar();
+
+                return r == null
+                    ? lessonId
+                    : Convert.ToInt32(r);
+            }
+        }
+
+        // =====================================================
+        // COMPLETE LESSON
+        // =====================================================
+
+        protected void Complete_Click(
+            object sender,
+            EventArgs e)
+        {
+            if (Session["role"].ToString()
+                == "guest")
+            {
                 return;
+            }
 
-            int userId = Convert.ToInt32(Session["user_id"]);
-            int lessonId = Convert.ToInt32(Session["lesson"]);
+            int userId =
+                Convert.ToInt32(
+                    Session["user_id"]);
 
-            using (SqlConnection con = new SqlConnection(connStr))
+            int lessonId =
+                Convert.ToInt32(
+                    Session["lesson"]);
+
+            using (SqlConnection con =
+                new SqlConnection(connStr))
             {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT COUNT(*) FROM progress WHERE user_id=@u AND lesson_id=@l", con);
-
-                cmd.Parameters.AddWithValue("@u", userId);
-                cmd.Parameters.AddWithValue("@l", lessonId);
-
                 con.Open();
 
-                bool completed = (int)cmd.ExecuteScalar() > 0;
+                SqlCommand cmd =
+                    new SqlCommand(@"
 
-                Complete.Text = "Complete"; 
-                Complete.ForeColor = completed ? Color.Green : Color.Black;
+                UPDATE progress
+
+                SET status='completed'
+
+                WHERE user_id=@u
+                AND lesson_id=@l", con);
+
+                cmd.Parameters.AddWithValue(
+                    "@u",
+                    userId);
+
+                cmd.Parameters.AddWithValue(
+                    "@l",
+                    lessonId);
+
+                cmd.ExecuteNonQuery();
             }
+
+            LoadLessons();
+
+            UpdateCompleteButton();
         }
 
-        protected void SelectLesson(object sender, EventArgs e)
+        // =====================================================
+        // BACK
+        // =====================================================
+
+        protected void Back_Click(
+            object sender,
+            EventArgs e)
         {
-            Button b = (Button)sender;
-            Session["lesson"] = Convert.ToInt32(b.CommandArgument);
-            LoadLesson();
-        }
-
-        protected void PrevLesson(object sender, EventArgs e)
-        {
-            int current = GetLessonOrder((int)Session["lesson"]);
-            if (current > 1)
-                Session["lesson"] = GetLessonIdByOrder(current - 1);
-
-            LoadLesson();
-        }
-
-        protected void NextLesson(object sender, EventArgs e)
-        {
-            int current = GetLessonOrder((int)Session["lesson"]);
-            if (current < 3)
-                Session["lesson"] = GetLessonIdByOrder(current + 1);
-
-            LoadLesson();
-        }
-
-        void HighlightSelectedLesson()
-        {
-            if (Session["lesson"] == null) return;
-
-            int currentLessonId = Convert.ToInt32(Session["lesson"]);
-
-            Button[] buttons = { Tutorial1, Tutorial2, Tutorial3 };
-
-            foreach (var btn in buttons)
-            {
-                if (btn.CommandArgument == currentLessonId.ToString())
-                {
-                    btn.ForeColor = System.Drawing.Color.Green;
-                }
-                else
-                {
-                    btn.ForeColor = System.Drawing.Color.Black;
-                }
-            }
-        }
-
-        int GetLessonOrder(int lessonId)
-        {
-            using (SqlConnection con = new SqlConnection(connStr))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT lesson_order FROM lessons WHERE lesson_id=@id", con);
-
-                cmd.Parameters.AddWithValue("@id", lessonId);
-                con.Open();
-                return (int)cmd.ExecuteScalar();
-            }
-        }
-
-        int GetLessonIdByOrder(int order)
-        {
-            int courseId = Convert.ToInt32(Session["course"]);
-
-            using (SqlConnection con = new SqlConnection(connStr))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT lesson_id FROM lessons WHERE course_id=@c AND lesson_order=@o", con);
-
-                cmd.Parameters.AddWithValue("@c", courseId);
-                cmd.Parameters.AddWithValue("@o", order);
-
-                con.Open();
-                return (int)cmd.ExecuteScalar();
-            }
+            Response.Redirect(
+                "StudentDashboard.aspx");
         }
     }
+
+
 }

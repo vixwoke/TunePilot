@@ -1,52 +1,104 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Lesson.aspx.cs" Inherits="TunePilot.Lesson" %>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
     <title>Lesson</title>
+
+    <style>
+        .lesson-btn {
+            display: block;
+            margin: 6px 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .current {
+            color: green;
+            font-weight: bold;
+        }
+
+        .completed {
+            color: green;
+        }
+
+        .normal {
+            color: black;
+        }
+    </style>
 </head>
+
 <body>
-<form id="form1" runat="server">
+    <form runat="server">
 
-    <!-- COURSE INFO -->
-    <asp:Label ID="LabelInstrument" runat="server" />
-    <asp:Label ID="LabelInstrumentDifficult" runat="server" />
+        <h2>
+            <asp:Label ID="LabelInstrument" runat="server" />
+            -
+        <asp:Label ID="LabelLevel" runat="server" />
+        </h2>
 
-    <hr />
+        <hr />
+        <!-- LESSON LIST -->
+        <asp:PlaceHolder
+            ID="LessonContainer"
+            runat="server"></asp:PlaceHolder>
 
-    <!-- LESSON BUTTONS -->
-    <asp:Button ID="Tutorial1" runat="server" OnClick="SelectLesson" />
-    <asp:Button ID="Tutorial2" runat="server" OnClick="SelectLesson" />
-    <asp:Button ID="Tutorial3" runat="server" OnClick="SelectLesson" />
+        <hr />
 
-    <hr />
+        <!-- CURRENT LESSON TITLE -->
+        <h2>
+            <asp:Label
+                ID="LessonTitle"
+                runat="server" />
+        </h2>
 
-    <!-- LESSON INFO -->
-    <h3><asp:Label ID="LabelLessonIndex" runat="server" /></h3>
-    <asp:Label ID="LabelLessonDescription" runat="server" /><br />
-    <asp:Label ID="LabelDuration" runat="server" />
+        <!-- LESSON CONTENT FILES -->
+        <h3>Lesson Resources</h3>
 
-    <hr />
+        <asp:PlaceHolder
+            ID="ContentContainer"
+            runat="server"></asp:PlaceHolder>
 
-    <!-- CONTENT LINKS -->
-    <asp:HyperLink ID="Label1" runat="server" Target="_blank" /><br />
-    <asp:HyperLink ID="Label2" runat="server" Target="_blank" /><br />
-    <asp:HyperLink ID="Label3" runat="server" Target="_blank" /><br />
-    <asp:HyperLink ID="Label4" runat="server" Target="_blank" /><br />
-    <asp:HyperLink ID="Label5" runat="server" Target="_blank" /><br />
+        <hr />
 
-    <hr />
+        <!-- VIDEO -->
+        <video
+            id="VideoPlayer"
+            runat="server"
+            width="700"
+            controls>
+        </video>
 
-    <!-- VIDEO -->
-    <video id="VideoPlayer" runat="server" controls></video>
+        <hr />
 
-    <hr />
+        <!-- SUMMARY -->
+        <h3>Summary</h3>
 
-    <!-- NAVIGATION -->
-    <asp:ImageButton ID="left" runat="server" ImageUrl="~/resources/homepage/left.png" OnClick="PrevLesson" />
-    <asp:Button ID="Complete" runat="server" Text="Complete" OnClick="ToggleComplete" />
-    <asp:ImageButton ID="right" runat="server" ImageUrl="~/resources/homepage/right.png" OnClick="NextLesson" />
+        <asp:Label
+            ID="LessonDesc"
+            runat="server" />
 
-</form>
+        <br />
+        <br />
+
+        <asp:Label
+            ID="LessonDuration"
+            runat="server" />
+
+        <hr />
+
+        <!-- NAV -->
+        <asp:Button ID="PrevBtn" runat="server" Text="Prev" OnClick="Prev_Click" />
+        <asp:Button ID="CompleteBtn" runat="server" Text="Complete" OnClick="Complete_Click" />
+        <asp:Button ID="NextBtn" runat="server" Text="Next" OnClick="Next_Click" />
+
+        <br />
+        <br />
+
+        <asp:Button ID="BackBtn" runat="server" Text="Back" OnClick="Back_Click" />
+
+    </form>
 </body>
 </html>
