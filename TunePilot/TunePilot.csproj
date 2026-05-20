@@ -64,9 +64,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database.mdf" />
-    <Content Include="App_Data\Database_log.ldf">
-      <DependentUpon>Database.mdf</DependentUpon>
+    <Content Include="AdminDashboard.aspx" />
+    <Content Include="App_Data\TunePilot.mdf" />
+    <Content Include="App_Data\TunePilot_log.ldf">
+      <DependentUpon>TunePilot.mdf</DependentUpon>
     </Content>
     <Content Include="damnpage.aspx" />
     <Content Include="editprofile.aspx" />
@@ -105,6 +106,13 @@
     <Content Include="login.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="damnpage.aspx.cs">
       <DependentUpon>damnpage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
