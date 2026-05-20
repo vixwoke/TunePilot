@@ -98,6 +98,7 @@
     <Content Include="resources\studentDashboard\square.png" />
     <Content Include="resources\studentDashboard\square1.png" />
     <Content Include="resources\studentDashboard\square2.png" />
+    <Content Include="resources\studentDashboard\square3.png" />
     <Content Include="resources\studentDashboard\trumpet.jpg" />
     <Content Include="resources\studentDashboard\trumpet1.png" />
     <Content Include="resources\studentDashboard\trumpetVoice.mp3" />
