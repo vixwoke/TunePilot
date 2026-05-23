@@ -22,7 +22,7 @@ namespace TunePilot
 
         protected void buttonAboutUs_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("aboutus.aspx");
         }
     }
 }
