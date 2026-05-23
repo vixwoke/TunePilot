@@ -99,6 +99,24 @@
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
             </div>
 
+            <div id="chatbot_container" runat="server">
+                <div id="chatbot-toggle" onclick="toggleChatbot()">Ask TunePilot</div>
+                <div id="chatbot-box" style="display: none;">
+                    <div id="chatbot-header">TunePilot Assistant</div>
+                    <div id="chatbot-messages"></div>
+                    <div id="chatbot-input-area">
+                        <asp:TextBox ID="chatInputtb" runat="server" placeholder="Ask me anything..."></asp:TextBox>
+                        <asp:Button ID="chatSendbtn" runat="server" Text="Send" OnClick="chatSendbtn_Click" />
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function toggleChatbot() {
+                    var box = document.getElementById('chatbot-box');
+                    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+                }
+            </script>
         </form>
     </body>
 </html>
