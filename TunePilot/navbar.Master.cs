@@ -39,10 +39,7 @@ namespace TunePilot
             string safeMessage = userMessage.Replace("'", "\\'").Replace("\r", "").Replace("\n", "<br>");
             string safeResponse = response.Replace("'", "\\'").Replace("\r", "").Replace("\n", "<br>");
 
-            string script = $@"document.getElementById('chatbot-messages').innerHTML 
-                               += '<div class=""user-msg"">You: {safeMessage}</div>' 
-                               + '<div class=""bot-msg"">TunePilot: {safeResponse}</div>';
-                               document.getElementById('chatbot-box').style.display = 'block';";
+            string script = $"document.getElementById('chatbot-messages').innerHTML += '<div class=\"user-msg\">You: {safeMessage}</div><div class=\"bot-msg\">TunePilot: {safeResponse}</div>'; document.getElementById('chatbot-box').style.display = 'block';";
 
             Page.ClientScript.RegisterStartupScript(GetType(), "chatResponse", script, true);
             chatInputtb.Text = "";
