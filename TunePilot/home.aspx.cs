@@ -16,8 +16,10 @@ namespace TunePilot
 
         protected void buttonGetStart_Click(object sender, EventArgs e)
         {
-            
-            Response.Redirect("StudentDashboard.aspx");
+            if (Session["user_id"] == null)
+                Response.Redirect("~/GuestPage.aspx");
+            else
+                Response.Redirect("~/StudentDashboard.aspx");
         }
 
         protected void buttonAboutUs_Click(object sender, EventArgs e)

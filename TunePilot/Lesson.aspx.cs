@@ -18,6 +18,8 @@ namespace TunePilot
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user_id"] == null || Session["role"].ToString() != "student")
+                Response.Redirect("~/login.aspx");
             if (Session["course"] == null || Session["lesson"] == null)
             {
                 Response.Redirect("StudentDashboard.aspx");

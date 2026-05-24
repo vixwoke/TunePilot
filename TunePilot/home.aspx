@@ -35,7 +35,7 @@
 
             </div>
                 <div style="display: flex;justify-content: center;align-items: center;">
-                    <asp:Button ID="buttonGetStart" runat="server" Text="Get Start" style="margin:10px;width:100px" OnClick="buttonGetStart_Click"/>
+                    <asp:Button ID="buttonGetStart" runat="server" Text="Get Started" style="margin:10px;width:100px" OnClick="buttonGetStart_Click"/>
                     <asp:Button ID="buttonAboutUs" runat="server" Text="About Us" style="margin:10px;width:100px" OnClick="buttonAboutUs_Click"/>
                 </div>
             </div>

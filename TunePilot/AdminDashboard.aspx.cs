@@ -15,6 +15,8 @@ namespace TunePilot
         string connStr = ConfigurationManager.ConnectionStrings["TunePilotDB"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user_id"] == null || Session["role"].ToString() != "admin")
+                Response.Redirect("~/login.aspx");
             if (!IsPostBack)
             {
                 BindCourseGrid("", "c.course_id");

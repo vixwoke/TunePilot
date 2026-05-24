@@ -13,6 +13,8 @@ namespace TunePilot
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user_id"] == null || Session["role"].ToString() != "admin")
+                Response.Redirect("~/login.aspx");
             if (Request.QueryString["id"] == null)
                 Response.Redirect("~/AdminDashboard.aspx");
 

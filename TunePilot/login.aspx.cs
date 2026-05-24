@@ -11,7 +11,16 @@ namespace TunePilot
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user_id"] != null)
-                Response.Redirect("home.aspx");
+            {
+                if (Session["role"].ToString() == "admin")
+                {
+                    Response.Redirect("~/AdminDashboard.aspx");
+                }
+                else
+                {
+                    Response.Redirect("~/StudentDashboard.aspx");
+                }
+            }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -35,7 +44,14 @@ namespace TunePilot
                         Session["username"] = reader["username"].ToString();
                         Session["first_name"] = reader["first_name"].ToString();
                         Session["role"] = reader["role"].ToString();
-                        Response.Redirect("home.aspx");
+                        if (Session["role"].ToString() == "admin")
+                        {
+                            Response.Redirect("~/AdminDashboard.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("~/StudentDashboard.aspx");
+                        }
                     }
                     else
                     {
