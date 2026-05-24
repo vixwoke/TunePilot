@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TunePilot
 {
@@ -16,10 +12,7 @@ namespace TunePilot
 
         protected void buttonGetStart_Click(object sender, EventArgs e)
         {
-            if (Session["user_id"] == null)
-                Response.Redirect("~/GuestPage.aspx");
-            else
-                Response.Redirect("~/StudentDashboard.aspx");
+            Response.Redirect("~/StudentDashboard.aspx");
         }
 
         protected void buttonAboutUs_Click(object sender, EventArgs e)
