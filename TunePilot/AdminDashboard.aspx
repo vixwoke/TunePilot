@@ -78,12 +78,13 @@
                 <br /><br />
 
                 <asp:GridView ID="lessonsgv" runat="server"
-                    AutoGenerateColumns="false"
+                    AutoGenerateColumns="False"
                     DataKeyNames="lesson_id">
                     <Columns>
                         <asp:BoundField DataField="lesson_order"     HeaderText="#" />
                         <asp:BoundField DataField="title"            HeaderText="Lesson Title" />
                         <asp:BoundField DataField="duration_minutes" HeaderText="Duration (min)" />
+                        <asp:HyperLinkField Text="Edit Contents" DataNavigateUrlFields="lesson_id" DataNavigateUrlFormatString="~/EditLesson.aspx?id={0}" />
                     </Columns>
                 </asp:GridView>
 

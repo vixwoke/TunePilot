@@ -17,7 +17,7 @@ namespace TunePilot
         {
             if (!IsPostBack)
             {
-                BindCourseGrid("", "c.title");
+                BindCourseGrid("", "c.course_id");
                 BindStudentList("");
             }
         }
@@ -283,9 +283,10 @@ namespace TunePilot
         {
             switch (sortCourseddl.SelectedValue)
             {
+                case "title": return "c.title";
                 case "instrument": return "i.name";
                 case "difficulty_level": return "c.difficulty_level";
-                default: return "c.title";
+                default: return "c.course_id";
             }
         }
     }
