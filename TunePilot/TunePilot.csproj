@@ -69,10 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminDashboard.aspx" />
-    <Content Include="App_Data\TunePilot.mdf" />
-    <Content Include="App_Data\TunePilot_log.ldf">
-      <DependentUpon>TunePilot.mdf</DependentUpon>
-    </Content>
     <Content Include="css\aboutusdep.css" />
     <Content Include="css\aboutus.css" />
     <Content Include="damnpage.aspx" />
@@ -224,6 +220,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="resources\client\" />
     <Folder Include="resources\content\" />
     <Folder Include="resources\icon\" />
