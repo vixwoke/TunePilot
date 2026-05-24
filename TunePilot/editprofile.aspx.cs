@@ -10,9 +10,8 @@ namespace TunePilot
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Must be logged in
             if (Session["user_id"] == null)
-                Response.Redirect("login.aspx");
+                Response.Redirect("~/login.aspx");
 
             if (!IsPostBack)
                 LoadUserData();
@@ -130,7 +129,10 @@ namespace TunePilot
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("home.aspx");
+            if (Session["role"].ToString() == "admin")
+                Response.Redirect("~/AdminDashboard.aspx");
+            else
+                Response.Redirect("~/StudentDashboard.aspx");
         }
     }
 }

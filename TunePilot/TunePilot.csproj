@@ -68,6 +68,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddCourse.aspx" />
     <Content Include="AdminDashboard.aspx" />
     <Content Include="css\aboutusdep.css" />
     <Content Include="css\aboutus.css" />
@@ -78,6 +79,7 @@
     <Content Include="css\style.css" />
     <Content Include="Lesson.aspx" />
     <Content Include="Quiz.aspx" />
+    <Content Include="register.aspx" />
     <Content Include="resources\aboutus\banner.jpg" />
     <Content Include="resources\aboutus\member1.jpg" />
     <Content Include="resources\aboutus\member2.jpg" />
@@ -117,6 +119,13 @@
     <Content Include="EditLesson.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCourse.aspx.cs">
+      <DependentUpon>AddCourse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddCourse.aspx.designer.cs">
+      <DependentUpon>AddCourse.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminDashboard.aspx.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -183,9 +192,10 @@
     </Compile>
     <Compile Include="register.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>register.aspx</DependentUpon>
     </Compile>
     <Compile Include="register.aspx.designer.cs">
-      <DependentUpon>register.aspx</DependentUpon>
+      <DependentUpon>register.aspx.cs</DependentUpon>
     </Compile>
     <Compile Include="StudentDashboard.aspx.cs">
       <DependentUpon>StudentDashboard.aspx</DependentUpon>

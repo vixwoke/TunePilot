@@ -11,7 +11,12 @@ namespace TunePilot
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user_id"] != null)
-                Response.Redirect("home.aspx");
+            {
+                if (Session["role"].ToString() == "admin")
+                    Response.Redirect("~/AdminDashboard.aspx");
+                else
+                    Response.Redirect("~/StudentDashboard.aspx");
+            }
         }
 
         protected void btnRegister_Click(object sender, EventArgs e)

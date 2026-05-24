@@ -74,7 +74,7 @@
 
             <div class="btn-row">
                 <asp:Button ID="btnSave" runat="server" Text="Save Changes" CssClass="btn-primary" OnClick="btnSave_Click" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
+                <asp:Button ID="btnCancel" runat="server" Text="Back" CssClass="btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
             </div>
         </div>
     </div>
