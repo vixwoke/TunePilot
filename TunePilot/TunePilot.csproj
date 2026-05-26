@@ -69,6 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddCourse.aspx" />
+    <Content Include="AddExam.aspx" />
+    <Content Include="AddLesson.aspx" />
+    <Content Include="AddStudent.aspx" />
     <Content Include="AdminDashboard.aspx" />
     <Content Include="css\aboutusdep.css" />
     <Content Include="css\aboutus.css" />
@@ -125,6 +128,27 @@
     </Compile>
     <Compile Include="AddCourse.aspx.designer.cs">
       <DependentUpon>AddCourse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddExam.aspx.cs">
+      <DependentUpon>AddExam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddExam.aspx.designer.cs">
+      <DependentUpon>AddExam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddLesson.aspx.cs">
+      <DependentUpon>AddLesson.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddLesson.aspx.designer.cs">
+      <DependentUpon>AddLesson.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddStudent.aspx.cs">
+      <DependentUpon>AddStudent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddStudent.aspx.designer.cs">
+      <DependentUpon>AddStudent.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminDashboard.aspx.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>

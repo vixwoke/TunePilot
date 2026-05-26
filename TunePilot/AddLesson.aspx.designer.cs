@@ -11,17 +11,26 @@ namespace TunePilot
 {
 
 
-    public partial class AdminDashboard
+    public partial class AddLesson
     {
 
         /// <summary>
-        /// dashboardTitlelbl control.
+        /// pageTitlelbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label dashboardTitlelbl;
+        protected global::System.Web.UI.WebControls.Label pageTitlelbl;
+
+        /// <summary>
+        /// backbtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button backbtn;
 
         /// <summary>
         /// courseTitlelbl control.
@@ -33,210 +42,192 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.Label courseTitlelbl;
 
         /// <summary>
-        /// sortCourseddl control.
+        /// messagelbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList sortCourseddl;
+        protected global::System.Web.UI.WebControls.Label messagelbl;
 
         /// <summary>
-        /// searchCoursetb control.
+        /// lessonTitletb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchCoursetb;
+        protected global::System.Web.UI.WebControls.TextBox lessonTitletb;
 
         /// <summary>
-        /// searchCoursebtn control.
+        /// summarytb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button searchCoursebtn;
+        protected global::System.Web.UI.WebControls.TextBox summarytb;
 
         /// <summary>
-        /// addCoursebtn control.
+        /// ordertb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addCoursebtn;
+        protected global::System.Web.UI.WebControls.TextBox ordertb;
 
         /// <summary>
-        /// coursesgv control.
+        /// durationtb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView coursesgv;
+        protected global::System.Web.UI.WebControls.TextBox durationtb;
 
         /// <summary>
-        /// courseDetailpnl control.
+        /// saveLessonbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel courseDetailpnl;
+        protected global::System.Web.UI.WebControls.Button saveLessonbtn;
 
         /// <summary>
-        /// courseMessagelbl control.
+        /// quizpnl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label courseMessagelbl;
+        protected global::System.Web.UI.WebControls.Panel quizpnl;
 
         /// <summary>
-        /// courseDetailTitlelbl control.
+        /// quizTitletb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label courseDetailTitlelbl;
+        protected global::System.Web.UI.WebControls.TextBox quizTitletb;
 
         /// <summary>
-        /// coursedv control.
+        /// quizDesctb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DetailsView coursedv;
+        protected global::System.Web.UI.WebControls.TextBox quizDesctb;
 
         /// <summary>
-        /// lessonsTitlelbl control.
+        /// passingStoretb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lessonsTitlelbl;
+        protected global::System.Web.UI.WebControls.TextBox passingStoretb;
 
         /// <summary>
-        /// lessonsgv control.
+        /// saveQuizbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView lessonsgv;
+        protected global::System.Web.UI.WebControls.Button saveQuizbtn;
 
         /// <summary>
-        /// addLessonbtn control.
+        /// questionspnl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addLessonbtn;
+        protected global::System.Web.UI.WebControls.Panel questionspnl;
 
         /// <summary>
-        /// addExambtn control.
+        /// questionsgv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addExambtn;
+        protected global::System.Web.UI.WebControls.GridView questionsgv;
 
         /// <summary>
-        /// studentTitlelbl control.
+        /// questionTexttb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label studentTitlelbl;
+        protected global::System.Web.UI.WebControls.TextBox questionTexttb;
 
         /// <summary>
-        /// searchStudenttb control.
+        /// questionOrdertb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchStudenttb;
+        protected global::System.Web.UI.WebControls.TextBox questionOrdertb;
 
         /// <summary>
-        /// searchStudentbtn control.
+        /// addQuestionbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button searchStudentbtn;
+        protected global::System.Web.UI.WebControls.Button addQuestionbtn;
 
         /// <summary>
-        /// addStudentbtn control.
+        /// optionspnl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addStudentbtn;
+        protected global::System.Web.UI.WebControls.Panel optionspnl;
 
         /// <summary>
-        /// studentsgv control.
+        /// optionsgv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView studentsgv;
+        protected global::System.Web.UI.WebControls.GridView optionsgv;
 
         /// <summary>
-        /// studentDetailpnl control.
+        /// optionTexttb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel studentDetailpnl;
+        protected global::System.Web.UI.WebControls.TextBox optionTexttb;
 
         /// <summary>
-        /// studentDetailTitlelbl control.
+        /// isCorrectcb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label studentDetailTitlelbl;
+        protected global::System.Web.UI.WebControls.CheckBox isCorrectcb;
 
         /// <summary>
-        /// studentdv control.
+        /// addOptionbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DetailsView studentdv;
-
-        /// <summary>
-        /// enrollmentsTitlelbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label enrollmentsTitlelbl;
-
-        /// <summary>
-        /// enrollmentsgv control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView enrollmentsgv;
+        protected global::System.Web.UI.WebControls.Button addOptionbtn;
     }
 }
