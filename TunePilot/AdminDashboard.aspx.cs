@@ -23,9 +23,40 @@ namespace TunePilot
                 BindStudentList("");
             }
         }
-        protected void sortCourseddl_SelectedIndexChanged(object sender, EventArgs e)
+        protected void studentsgv_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindCourseGrid(searchCoursetb.Text.Trim(), GetSortBy());
+            int userId = (int)studentsgv.SelectedDataKey.Value;
+
+            string queryStudent = @"SELECT user_id, first_name, last_name, username, email, active, created_at
+                                    FROM users 
+                                    WHERE user_id = @id";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlDataAdapter da = new SqlDataAdapter(queryStudent, conn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@id", userId);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                studentdv.DataSource = dt;
+                studentdv.DataBind();
+            }
+
+            string queryEnrollments = @"
+        SELECT e.enrollment_id, c.title, e.enrolled_at, e.status
+        FROM enrollments e JOIN courses c ON e.course_id = c.course_id
+        WHERE e.user_id = @id";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlDataAdapter da = new SqlDataAdapter(queryEnrollments, conn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@id", userId);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                enrollmentsgv.DataSource = dt;
+                enrollmentsgv.DataBind();
+            }
+
+            studentDetailpnl.Visible = true;
         }
 
         protected void searchCoursebtn_Click(object sender, EventArgs e)
@@ -90,8 +121,63 @@ namespace TunePilot
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM courses WHERE course_id = @id", conn);
+                SqlCommand cmd = new SqlCommand(@"
+            DELETE ea FROM exam_answers ea
+            JOIN exam_attempts et ON ea.attempt_id = et.attempt_id
+            JOIN exams ex ON et.exam_id = ex.exam_id
+            WHERE ex.course_id = @id;
+
+            DELETE et FROM exam_attempts et
+            JOIN exams ex ON et.exam_id = ex.exam_id
+            WHERE ex.course_id = @id;
+
+            DELETE eq FROM exam_questions eq
+            JOIN exams ex ON eq.exam_id = ex.exam_id
+            WHERE ex.course_id = @id;
+
+            DELETE FROM exams WHERE course_id = @id;
+
+            DELETE qa FROM quiz_answers qa
+            JOIN quiz_attempts qat ON qa.attempt_id = qat.attempt_id
+            JOIN quizzes q ON qat.quiz_id = q.quiz_id
+            JOIN lessons l ON q.lesson_id = l.lesson_id
+            WHERE l.course_id = @id;
+
+            DELETE qat FROM quiz_attempts qat
+            JOIN quizzes q ON qat.quiz_id = q.quiz_id
+            JOIN lessons l ON q.lesson_id = l.lesson_id
+            WHERE l.course_id = @id;
+
+            DELETE qo FROM quiz_options qo
+            JOIN quiz_questions qq ON qo.question_id = qq.question_id
+            JOIN quizzes q ON qq.quiz_id = q.quiz_id
+            JOIN lessons l ON q.lesson_id = l.lesson_id
+            WHERE l.course_id = @id;
+
+            DELETE qq FROM quiz_questions qq
+            JOIN quizzes q ON qq.quiz_id = q.quiz_id
+            JOIN lessons l ON q.lesson_id = l.lesson_id
+            WHERE l.course_id = @id;
+
+            DELETE q FROM quizzes q
+            JOIN lessons l ON q.lesson_id = l.lesson_id
+            WHERE l.course_id = @id;
+
+            DELETE p FROM progress p
+            JOIN lessons l ON p.lesson_id = l.lesson_id
+            WHERE l.course_id = @id;
+
+            DELETE lc FROM lesson_contents lc
+            JOIN lessons l ON lc.lesson_id = l.lesson_id
+            WHERE l.course_id = @id;
+
+            DELETE FROM lessons WHERE course_id = @id;
+
+            DELETE FROM enrollments WHERE course_id = @id;
+
+            -- course
+            DELETE FROM courses WHERE course_id = @id;
+        ", conn);
                 cmd.Parameters.AddWithValue("@id", courseId);
                 cmd.ExecuteNonQuery();
             }
@@ -133,10 +219,10 @@ namespace TunePilot
 
         protected void addStudentbtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/register.aspx");
+            Response.Redirect("~/AddStudent.aspx");
         }
 
-        protected void studentslv_ItemCommand(object sender, ListViewCommandEventArgs e)
+        protected void studentsgv_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             if (e.CommandName == "Select")
             {
@@ -232,8 +318,8 @@ namespace TunePilot
                 da.SelectCommand.Parameters.AddWithValue("@search", "%" + search + "%");
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                studentslv.DataSource = dt;
-                studentslv.DataBind();
+                studentsgv.DataSource = dt;
+                studentsgv.DataBind();
             }
         }
         protected void coursedv_ModeChanging(object sender, DetailsViewModeEventArgs e)
@@ -290,6 +376,65 @@ namespace TunePilot
                 case "difficulty_level": return "c.difficulty_level";
                 default: return "c.course_id";
             }
+        }
+
+        protected void studentsgv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            studentsgv.PageIndex = e.NewPageIndex;
+            BindStudentList(searchStudenttb.Text.Trim());
+        }
+
+        protected void studentdv_ModeChanging(object sender, DetailsViewModeEventArgs e)
+        {
+            studentdv.ChangeMode(e.NewMode);
+            int userId = (int)studentsgv.SelectedDataKey.Value;
+
+            string query = @"SELECT user_id, first_name, last_name, username, email, active, created_at
+                             FROM users 
+                             WHERE user_id = @id";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlDataAdapter da = new SqlDataAdapter(query, conn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@id", userId);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                studentdv.DataSource = dt;
+                studentdv.DataBind();
+            }
+        }
+
+        protected void sortCourseddl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void addLessonbtn_Click(object sender, EventArgs e)
+        {
+            int courseId = (int)coursesgv.SelectedDataKey.Value;
+            Response.Redirect("~/AddLesson.aspx?course_id=" + courseId);
+        }
+
+        protected void addExambtn_Click(object sender, EventArgs e)
+        {
+            int courseId = (int)coursesgv.SelectedDataKey.Value;
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand check = new SqlCommand(
+                    "SELECT COUNT(*) FROM exams WHERE course_id = @id", conn);
+                check.Parameters.AddWithValue("@id", courseId);
+                int exists = Convert.ToInt32(check.ExecuteScalar());
+                if (exists > 0)
+                {
+                    courseMessagelbl.Text = "An exam already exists for this course.";
+                    courseMessagelbl.Visible = true;
+                    return;
+                }
+            }
+
+            Response.Redirect("~/AddExam.aspx?course_id=" + courseId);
         }
     }
 }
