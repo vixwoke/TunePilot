@@ -2,7 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>TunePilot - About Us</title>
-    <link rel="stylesheet" href="css/aboutus.css" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -24,7 +23,7 @@
             and engaging, so that users of all ages, regardless of skill level and financial ability can learn
             and master instruments.
         </p>
-        <p style="margin-top:14px;">
+        <p>
             Low prices. No fixed class schedules. Just open the browser and learn
             at your own pace, whether you have five minutes or five hours.
         </p>
@@ -53,59 +52,6 @@
                 <p>Sit a final exam to certify your skill level for each instrument.</p>
             </div>
         </div>
-    </div>
-
-    <hr class="section-divider" />
-
-    <!-- The team -->
-    <div class="about-section">
-        <h2>The team</h2>
-
-        <div class="team-member">
-            <img src="/resources/aboutus/member1.jpg" alt="Member 1" />
-            <div class="team-member-info">
-                <h3>Daniel Christopher Widodo</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
-            </div>
-        </div>
-
-        <div class="team-member reverse">
-            <img src="/resources/aboutus/member2.jpg" alt="Member 2" />
-            <div class="team-member-info">
-                <h3>Ng Jeechian</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
-            </div>
-        </div>
-
-        <div class="team-member">
-            <img src="/resources/aboutus/member3.jpg" alt="Member 3" />
-            <div class="team-member-info">
-                <h3>Darren William</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
-            </div>
-        </div>
-
-        <div class="team-member reverse">
-            <img src="/resources/aboutus/member2.jpg" alt="Member 4" />
-            <div class="team-member-info">
-                <h3>Gilang Suherlambang</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
-            </div>
-        </div>
-
-        <div class="team-member">
-            <img src="/resources/aboutus/member3.jpg" alt="Member 5" />
-            <div class="team-member-info">
-                <h3>Yoosuf Haami</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
-            </div>
-        </div>
-
     </div>
 
     <hr class="section-divider" />
@@ -184,7 +130,62 @@
         </div>
     </div>
 
-        <!-- Contact Us -->
+    <hr class="section-divider" />
+
+    <!-- The team -->
+    <div class="about-section">
+        <h2>The team</h2>
+
+        <div class="team-member">
+            <img src="/resources/aboutus/member1.jpg" alt="Daniel" />
+            <div class="team-member-info">
+                <h3>Daniel Christopher Widodo</h3>
+                <div class="role">[Insert Role]</div>
+                <p>[Insert Description]</p>
+            </div>
+        </div>
+
+        <div class="team-member reverse">
+            <img src="/resources/aboutus/member2.jpg" alt="Ng Jeechian" />
+            <div class="team-member-info">
+                <h3>Ng Jeechian</h3>
+                <div class="role">[Insert Role]</div>
+                <p>[Insert Description]</p>
+            </div>
+        </div>
+
+        <div class="team-member">
+            <img src="/resources/aboutus/member3.jpg" alt="Darren William" />
+            <div class="team-member-info">
+                <h3>Darren William</h3>
+                <div class="role">[Insert Role]</div>
+                <p>[Insert Description]</p>
+            </div>
+        </div>
+
+        <div class="team-member reverse">
+            <img src="/resources/aboutus/member4.jpg" alt="Gilang Suherlambang" />
+            <div class="team-member-info">
+                <h3>Gilang Suherlambang</h3>
+                <div class="role">[Insert Role]</div>
+                <p>[Insert Description]</p>
+            </div>
+        </div>
+
+        <div class="team-member">
+            <img src="/resources/aboutus/member5.jpg" alt="Yoosuf Haami" />
+            <div class="team-member-info">
+                <h3>Yoosuf Haami</h3>
+                <div class="role">[Insert Role]</div>
+                <p>[Insert Description]</p>
+            </div>
+        </div>
+
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- Contact Us -->
     <div class="contact-section">
         <h2>Contact us</h2>
         <p>Have a question, suggestion, or just want to say hello? We'd love to hear from you.</p>
