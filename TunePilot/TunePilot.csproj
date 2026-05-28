@@ -92,6 +92,7 @@
     <Content Include="resources\aboutus\member2.jpg" />
     <Content Include="resources\aboutus\member3.jpg" />
     <Content Include="resources\aboutus\member4.jpg" />
+    <Content Include="resources\aboutus\member4.png" />
     <Content Include="resources\aboutus\member5.jpg" />
     <Content Include="resources\homepage\acoustic.jpg" />
     <Content Include="resources\homepage\drum.jpg" />

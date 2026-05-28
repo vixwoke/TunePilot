@@ -1487,6 +1487,81 @@ moving their head to left or right.
     text-align: left;
 }
 
+.team-member-info .portfolio-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 10px 14px;
+    color: var(--tp-color-strong);
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    background: linear-gradient(135deg, #fff 0%, #f8f7f3 100%);
+    border: 1px solid #d8d4c8;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(var(--tp-color-strong-rgb), 0.12);
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.team-member-info .portfolio-link span {
+    color: #777;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.team-member-info .portfolio-link strong {
+    color: var(--tp-color-strong);
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.team-member-info .portfolio-link::after {
+    content: '->';
+    width: 18px;
+    height: 18px;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0;
+    text-align: center;
+    background: var(--tp-color-strong);
+    border-radius: 999px;
+}
+
+.team-member-info .portfolio-link:hover,
+.team-member-info .portfolio-link:focus-visible {
+    color: #fff;
+    background: var(--tp-color-strong);
+    border-color: var(--tp-color-strong);
+    box-shadow: 0 6px 18px rgba(var(--tp-color-strong-rgb), 0.18);
+    transform: translateY(-1px);
+}
+
+.team-member-info .portfolio-link:hover span,
+.team-member-info .portfolio-link:focus-visible span {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.team-member-info .portfolio-link:hover strong,
+.team-member-info .portfolio-link:focus-visible strong {
+    color: #fff;
+}
+
+.team-member-info .portfolio-link:hover::after,
+.team-member-info .portfolio-link:focus-visible::after {
+    color: var(--tp-color-strong);
+    background: #fff;
+}
+
+.team-member-info .portfolio-link:focus-visible {
+    outline: 3px solid rgba(var(--tp-color-strong-rgb), 0.22);
+    outline-offset: 2px;
+}
+
 /* =========================
    ABOUT - REVIEWS
 ========================= */

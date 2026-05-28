@@ -164,11 +164,15 @@
         </div>
 
         <div class="team-member reverse">
-            <img src="/resources/aboutus/member4.jpg" alt="Gilang Suherlambang" />
+            <img src="/resources/aboutus/member4.png" alt="Gilang Suherlambang" />
             <div class="team-member-info">
                 <h3>Gilang Suherlambang</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
+                <div class="role">Website UI/UX</div>
+                <p>Taking responsibility for the website design, including UI elements, layout structure, and styling with CSS to create a responsive and user-friendly experience. Developed and customized visual components, maintaining clean and modern design standards.</p>
+                <a class="portfolio-link" href="https://vixwoke.com" target="_blank">
+                    <span>View portfolio</span>
+                    <strong>vixwoke.com</strong>
+                </a>
             </div>
         </div>
 
