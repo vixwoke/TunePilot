@@ -223,9 +223,7 @@ namespace TunePilot
 
                     btns[i].CommandArgument = r["option_id"].ToString();
 
-                    btns[i].BackColor = Color.White;
-
-                    btns[i].ForeColor = Color.Black;
+                    btns[i].CssClass = "quiz-option-btn";
 
                     i++;
                 }
@@ -250,35 +248,13 @@ namespace TunePilot
             {
                 int questionId = Convert.ToInt32(questions.Rows[i]["question_id"]);
 
-                Label lbl = new Label();
+                string cssClass = "quiz-status-number";
+                if (i == currentIndex) cssClass += " current";
+                else if (IsAnswered(questionId)) cssClass += " answered";
 
-                lbl.Text = (i + 1).ToString();
-
-                lbl.BorderStyle = BorderStyle.Solid;
-
-                lbl.BorderWidth = 1;
-
-                lbl.Style["margin-right"] = "5px";
-
-                if (IsAnswered(questionId))
-                {
-                    lbl.BackColor = Color.LightGreen;
-                }
-                else
-                {
-                    lbl.BackColor = Color.Black;
-
-                    lbl.ForeColor = Color.White;
-                }
-
-                if (i == currentIndex)
-                {
-                    lbl.BackColor = Color.DarkGreen;
-
-                    lbl.ForeColor = Color.White;
-                }
-
-                QuestionContainer.Controls.Add(lbl);
+                QuestionContainer.Controls.Add(
+                    new Literal { Text = "<span class=\"" + cssClass + "\">" + (i + 1) + "</span>" }
+                );
             }
         }
 
@@ -412,15 +388,11 @@ namespace TunePilot
 
             foreach (Button btn in btns)
             {
-                btn.BackColor = Color.White;
-
-                btn.ForeColor = Color.Black;
+                btn.CssClass = "quiz-option-btn";
 
                 if (btn.CommandArgument == selectedOptionId.ToString())
                 {
-                    btn.BackColor = Color.DarkBlue;
-
-                    btn.ForeColor = Color.White;
+                    btn.CssClass = "quiz-option-btn selected";
                 }
             }
         }

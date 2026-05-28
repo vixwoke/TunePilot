@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace TunePilot
@@ -11,17 +12,37 @@ namespace TunePilot
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["role"] == null) Session["role"] = "guest";
+            if (Session["role"] == null) Session["role"] = "fallback_role";
             if (Session["instrument"] == null) Session["instrument"] = 1;
 
             RoleLabel.Text = Session["role"].ToString();
 
-            if (Request["__EVENTTARGET"] == "InstrumentSelect")
-                Session["instrument"] = Convert.ToInt32(Request["__EVENTARGUMENT"]);
+            if (Session["first_name"] != null)
+                lblGreeting.Text = "Welcome back, " + Session["first_name"].ToString() + " " + Session["last_name"].ToString()+"!";
+            else
+                lblGreeting.Text = "Welcome, [if u see this, session is empty. check it pls/]";
+
+            CardGuitar.ServerClick += InstrumentBtn_Click;
+            CardDrum.ServerClick += InstrumentBtn_Click;
+            CardTrumpet.ServerClick += InstrumentBtn_Click;
+
+            SetActiveCard();
 
             LoadDashboard();
+        }
 
-            SetActiveIcon(Convert.ToInt32(Session["instrument"]));
+        void SetActiveCard()
+        {
+            int id = Convert.ToInt32(Session["instrument"]);
+            CardGuitar.Attributes["class"] = "instrument-card";
+            CardDrum.Attributes["class"] = "instrument-card";
+            CardTrumpet.Attributes["class"] = "instrument-card";
+            switch (id)
+            {
+                case 1: CardGuitar.Attributes["class"] = "instrument-card active"; break;
+                case 2: CardDrum.Attributes["class"] = "instrument-card active"; break;
+                case 3: CardTrumpet.Attributes["class"] = "instrument-card active"; break;
+            }
         }
 
         void LoadDashboard()
@@ -30,7 +51,6 @@ namespace TunePilot
             LoadLessons();
             LoadQuizzes();
             LoadExams();
-            ApplyGuestRestrictions();
         }
 
         void LoadInstrumentInfo()
@@ -92,6 +112,7 @@ namespace TunePilot
                 SqlDataReader r = cmd.ExecuteReader();
 
                 int currentCourse = -1;
+                int lessonNumber = 0;
 
                 while (r.Read())
                 {
@@ -100,6 +121,7 @@ namespace TunePilot
                     if (currentCourse != courseId)
                     {
                         currentCourse = courseId;
+                        lessonNumber = 1;
 
                         Literal title = new Literal();
                         title.Text = "<div class='course-title'>" + r["course_title"].ToString() + "</div>";
@@ -116,8 +138,9 @@ namespace TunePilot
                         LinkButton btn = new LinkButton();
 
                         btn.ID = "Lesson_" + r["lesson_id"].ToString();
-                        btn.Text = r["lesson_title"].ToString();
+                        btn.Text = lessonNumber + ". " + r["lesson_title"].ToString();
                         btn.CommandArgument = r["lesson_id"].ToString();
+                        btn.CssClass = "lesson-link";
 
                         btn.Click += SelectCourse;
 
@@ -127,27 +150,24 @@ namespace TunePilot
                     {
                         Label lbl = new Label();
 
-                        lbl.Text = r["lesson_title"].ToString() + " (Locked)";
+                        lbl.Text = lessonNumber + ". " + r["lesson_title"].ToString() + " (Locked)";
+                        lbl.CssClass = "lesson-locked";
 
                         LessonContainer.Controls.Add(lbl);
                     }
 
-                    LessonContainer.Controls.Add(new Literal() { Text = "<br/>" });
+                    lessonNumber++;
 
                     string status =
                         r["status"] == DBNull.Value ? "" : r["status"].ToString().ToLower();
 
-                    string image = "~/resources/studentDashboard/square.png";
+                    string dotClass = "empty";
+                    if (status == "in progress") dotClass = "progress";
+                    if (status == "completed") dotClass = "completed";
 
-                    if (status == "in progress") image = "~/resources/studentDashboard/square3.png";
-                    if (status == "completed") image = "~/resources/studentDashboard/square1.png";
-
-                    Image img = new Image();
-
-                    img.ImageUrl = image;
-                    img.CssClass = "progress-img";
-
-                    LessonProgressContainer.Controls.Add(img);
+                    LessonProgressContainer.Controls.Add(
+                        new Literal { Text = "<span class=\"progress-dot progress-dot--" + dotClass + "\"></span>" }
+                    );
                 }
             }
         }
@@ -182,6 +202,8 @@ WITH LatestAttempt AS
 SELECT 
     q.quiz_id,
     q.title,
+    c.course_id,
+    c.title AS course_title,
 
     la.attempt_id,
     la.passed AS latest_passed,
@@ -213,7 +235,7 @@ LEFT JOIN LatestAttempt la
     AND la.user_id = @user_id
     AND la.rn = 1
 
-ORDER BY q.quiz_id;";
+ORDER BY c.course_id, q.quiz_id;";
 
                 SqlCommand cmd = new SqlCommand(q, con);
 
@@ -224,56 +246,52 @@ ORDER BY q.quiz_id;";
 
                 SqlDataReader r = cmd.ExecuteReader();
 
+                int currentCourse = -1;
+                int quizNumber = 0;
+
                 while (r.Read())
                 {
+                    int courseId = Convert.ToInt32(r["course_id"]);
+
+                    if (currentCourse != courseId)
+                    {
+                        currentCourse = courseId;
+                        quizNumber = 1;
+
+                        Literal title = new Literal();
+                        title.Text = "<div class='course-title'>" + r["course_title"].ToString() + "</div>";
+
+                        QuizContainer.Controls.Add(title);
+                    }
+
                     LinkButton btn = new LinkButton();
 
                     btn.ID = "Quiz_" + r["quiz_id"].ToString();
-                    btn.Text = r["title"].ToString();
+                    btn.Text = quizNumber + ". " + r["title"].ToString();
                     btn.CommandArgument = r["quiz_id"].ToString();
+                    btn.CssClass = "quiz-link";
 
                     btn.Click += SelectQuiz;
 
                     QuizContainer.Controls.Add(btn);
 
-                    QuizContainer.Controls.Add(new Literal() { Text = "<br/>" });
+                    quizNumber++;
 
+                    string dotClass = "empty";
 
-                    // never attempt
-                    string image = "~/resources/studentDashboard/square.png";
-
-                    // no attempt record
-                    if (r["attempt_id"] == DBNull.Value)
+                    if (r["attempt_id"] != DBNull.Value)
                     {
-                        image = "~/resources/studentDashboard/square.png";
-                    }
-                    // latest attempt still in progress
-                    else if (r["latest_passed"] == DBNull.Value)
-                    {
-                        image = "~/resources/studentDashboard/square3.png";
-                    }
-                    else
-                    {
-                        bool everPassed = Convert.ToInt32(r["ever_passed"]) == 1;
-
-                        // passed before
-                        if (everPassed)
-                        {
-                            image = "~/resources/studentDashboard/square1.png";
-                        }
-                        // attempted but never passed
+                        if (r["latest_passed"] == DBNull.Value)
+                            dotClass = "progress";
+                        else if (Convert.ToInt32(r["ever_passed"]) == 1)
+                            dotClass = "completed";
                         else
-                        {
-                            image = "~/resources/studentDashboard/square2.png";
-                        }
+                            dotClass = "failed";
                     }
 
-                    Image img = new Image();
-
-                    img.ImageUrl = image;
-                    img.CssClass = "progress-img";
-
-                    QuizProgressContainer.Controls.Add(img);
+                    QuizProgressContainer.Controls.Add(
+                        new Literal { Text = "<span class=\"progress-dot progress-dot--" + dotClass + "\"></span>" }
+                    );
                 }
             }
         }
@@ -315,37 +333,70 @@ ORDER BY q.quiz_id;";
 
                 SqlDataReader r = cmd.ExecuteReader();
 
+                int examNumber = 0;
+
                 while (r.Read())
                 {
-                    LinkButton btn = new LinkButton();
+                    examNumber++;
 
-                    btn.ID = "Exam_" + r["exam_id"].ToString();
-
-                    btn.Text = r["title"].ToString() + " | Attempts: " + r["attempts"].ToString() + " | Best Score: " + r["best_score"].ToString() + "%";
-
-                    btn.CommandArgument = r["exam_id"].ToString();
-
-                    btn.Click += SelectExam;
-
-                    ExamContainer.Controls.Add(btn);
-
-                    ExamContainer.Controls.Add(new Literal() { Text = "<br/>" });
-
+                    int attempts = Convert.ToInt32(r["attempts"]);
+                    int bestScore = Convert.ToInt32(r["best_score"]);
                     string result = r["result"].ToString();
 
-                    string image = "~/resources/studentDashboard/square.png";
+                    string statusLabel = "";
+                    string statusClass = "";
+                    if (result == "pass") { statusLabel = "Passed"; statusClass = "exam-status passed"; }
+                    else if (result == "fail") { statusLabel = bestScore + "%"; statusClass = "exam-status failed"; }
+                    else { statusLabel = "Not attempted"; statusClass = "exam-status empty"; }
 
-                    if (result == "fail") image = "~/resources/studentDashboard/square2.png";
-                    if (result == "pass") image = "~/resources/studentDashboard/square1.png";
+                    Panel item = new Panel { CssClass = "exam-item" };
+                    Panel row = new Panel { CssClass = "exam-row" };
 
-                    Image img = new Image();
+                    LinkButton btn = new LinkButton();
+                    btn.ID = "Exam_" + r["exam_id"].ToString();
+                    btn.Text = examNumber + ". " + r["title"].ToString();
+                    btn.CssClass = "exam-link";
+                    btn.CommandArgument = r["exam_id"].ToString();
+                    btn.Click += SelectExam;
 
-                    img.ImageUrl = image;
-                    img.CssClass = "progress-img";
+                    Literal badge = new Literal();
+                    badge.Text = "<span class='" + statusClass + "'>" + statusLabel + "</span>";
 
-                    ExamProgressContainer.Controls.Add(img);
+                    Literal meta = new Literal();
+                    meta.Text = "<div class='exam-meta'>" + attempts + " attempt" + (attempts != 1 ? "s" : "") + " &middot; Best: " + bestScore + "%</div>";
+
+                    row.Controls.Add(btn);
+                    row.Controls.Add(badge);
+                    item.Controls.Add(row);
+                    item.Controls.Add(meta);
+                    ExamContainer.Controls.Add(item);
+
+                    string dotClass = "empty";
+                    if (result == "pass") dotClass = "completed";
+                    else if (result == "fail") dotClass = "failed";
+
+                    ExamProgressContainer.Controls.Add(
+                        new Literal { Text = "<span class=\"progress-dot progress-dot--" + dotClass + "\"></span>" }
+                    );
                 }
             }
+        }
+
+        protected void InstrumentBtn_Click(object sender, EventArgs e)
+        {
+            HtmlButton btn = (HtmlButton)sender;
+            if (btn.ID == "CardGuitar") Session["instrument"] = 1;
+            else if (btn.ID == "CardDrum") Session["instrument"] = 2;
+            else if (btn.ID == "CardTrumpet") Session["instrument"] = 3;
+            SetActiveCard();
+            LoadDashboard();
+        }
+
+        protected void SelectExam(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            Session["exam"] = btn.CommandArgument;
+            Response.Redirect("Exam.aspx");
         }
 
         protected void SelectCourse(object sender, EventArgs e)
@@ -386,15 +437,6 @@ ORDER BY q.quiz_id;";
             Response.Redirect("Quiz.aspx");
         }
 
-        protected void SelectExam(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-
-            Session["exam"] = btn.CommandArgument;
-
-            Response.Redirect("Exam.aspx");
-        }
-
         void SetEnrollment()
         {
             if (Session["role"].ToString() == "guest") return;
@@ -424,39 +466,5 @@ ORDER BY q.quiz_id;";
             }
         }
 
-        void ApplyGuestRestrictions()
-        {
-            if (Session["role"].ToString() == "guest")
-                LoginUnlock.Text = "Login to unlock more lessons, quizzes and exams.";
-        }
-
-        void SetActiveIcon(int id)
-        {
-            GuitarIcon.Style["border"] = "2px solid gray";
-            DrumIcon.Style["border"] = "2px solid gray";
-            TrumpetIcon.Style["border"] = "2px solid gray";
-
-            GuitarIcon.ImageUrl = "/resources/studentDashboard/guitar.jpg";
-            DrumIcon.ImageUrl = "/resources/studentDashboard/drum.png";
-            TrumpetIcon.ImageUrl = "/resources/studentDashboard/trumpet.jpg";
-
-            switch (id)
-            {
-                case 1:
-                    GuitarIcon.Style["border"] = "2px solid red";
-                    GuitarIcon.ImageUrl = "/resources/studentDashboard/guitar1.png";
-                    break;
-
-                case 2:
-                    DrumIcon.Style["border"] = "2px solid red";
-                    DrumIcon.ImageUrl = "/resources/studentDashboard/drum1.png";
-                    break;
-
-                case 3:
-                    TrumpetIcon.Style["border"] = "2px solid red";
-                    TrumpetIcon.ImageUrl = "/resources/studentDashboard/trumpet1.png";
-                    break;
-            }
-        }
     }
 }

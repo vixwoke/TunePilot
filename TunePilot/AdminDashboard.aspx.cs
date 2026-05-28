@@ -21,10 +21,16 @@ namespace TunePilot
             {
                 BindCourseGrid("", "c.course_id");
                 BindStudentList("");
+                SetActiveManagementView("students");
+            }
+            else
+            {
+                SetActiveManagementView((string)ViewState["AdminManagementView"] ?? "students");
             }
         }
         protected void studentsgv_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SetActiveManagementView("students");
             int userId = (int)studentsgv.SelectedDataKey.Value;
 
             string queryStudent = @"SELECT user_id, first_name, last_name, username, email, active, created_at
@@ -61,6 +67,7 @@ namespace TunePilot
 
         protected void searchCoursebtn_Click(object sender, EventArgs e)
         {
+            SetActiveManagementView("courses");
             BindCourseGrid(searchCoursetb.Text.Trim(), GetSortBy());
         }
 
@@ -71,12 +78,14 @@ namespace TunePilot
 
         protected void coursesgv_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            SetActiveManagementView("courses");
             coursesgv.PageIndex = e.NewPageIndex;
             BindCourseGrid(searchCoursetb.Text.Trim(), GetSortBy());
         }
 
         protected void coursesgv_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SetActiveManagementView("courses");
             int courseId = (int)coursesgv.SelectedDataKey.Value;
 
             string queryCourse = @"
@@ -116,6 +125,7 @@ namespace TunePilot
 
         protected void coursesgv_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            SetActiveManagementView("courses");
             int courseId = (int)coursesgv.DataKeys[e.RowIndex].Value;
 
             using (SqlConnection conn = new SqlConnection(connStr))
@@ -188,6 +198,7 @@ namespace TunePilot
 
         protected void coursedv_ItemUpdating(object sender, DetailsViewUpdateEventArgs e)
         {
+            SetActiveManagementView("courses");
             int courseId = (int)coursedv.DataKey.Value;
             string title = e.NewValues["title"].ToString();
             string desc = e.NewValues["description"].ToString();
@@ -214,6 +225,7 @@ namespace TunePilot
 
         protected void searchStudentbtn_Click(object sender, EventArgs e)
         {
+            SetActiveManagementView("students");
             BindStudentList(searchStudenttb.Text.Trim());
         }
 
@@ -226,6 +238,7 @@ namespace TunePilot
         {
             if (e.CommandName == "Select")
             {
+                SetActiveManagementView("students");
                 int userId = Convert.ToInt32(e.CommandArgument);
 
                 string queryStudent = @"
@@ -263,6 +276,7 @@ namespace TunePilot
         }
         protected void studentdv_ItemUpdating(object sender, DetailsViewUpdateEventArgs e)
         {
+            SetActiveManagementView("students");
             int userId = (int)studentdv.DataKey.Value;
             string fname = e.NewValues["first_name"].ToString();
             string lname = e.NewValues["last_name"].ToString();
@@ -324,6 +338,7 @@ namespace TunePilot
         }
         protected void coursedv_ModeChanging(object sender, DetailsViewModeEventArgs e)
         {
+            SetActiveManagementView("courses");
             coursedv.ChangeMode(e.NewMode);
             int courseId = (int)coursesgv.SelectedDataKey.Value;
             BindCourseDetail(courseId);
@@ -380,12 +395,14 @@ namespace TunePilot
 
         protected void studentsgv_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            SetActiveManagementView("students");
             studentsgv.PageIndex = e.NewPageIndex;
             BindStudentList(searchStudenttb.Text.Trim());
         }
 
         protected void studentdv_ModeChanging(object sender, DetailsViewModeEventArgs e)
         {
+            SetActiveManagementView("students");
             studentdv.ChangeMode(e.NewMode);
             int userId = (int)studentsgv.SelectedDataKey.Value;
 
@@ -406,17 +423,20 @@ namespace TunePilot
 
         protected void sortCourseddl_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            SetActiveManagementView("courses");
+            BindCourseGrid(searchCoursetb.Text.Trim(), GetSortBy());
         }
 
         protected void addLessonbtn_Click(object sender, EventArgs e)
         {
+            SetActiveManagementView("courses");
             int courseId = (int)coursesgv.SelectedDataKey.Value;
             Response.Redirect("~/AddLesson.aspx?course_id=" + courseId);
         }
 
         protected void addExambtn_Click(object sender, EventArgs e)
         {
+            SetActiveManagementView("courses");
             int courseId = (int)coursesgv.SelectedDataKey.Value;
 
             using (SqlConnection conn = new SqlConnection(connStr))
@@ -435,6 +455,27 @@ namespace TunePilot
             }
 
             Response.Redirect("~/AddExam.aspx?course_id=" + courseId);
+        }
+
+        protected void studentSwitchbtn_Click(object sender, EventArgs e)
+        {
+            SetActiveManagementView("students");
+        }
+
+        protected void courseSwitchbtn_Click(object sender, EventArgs e)
+        {
+            SetActiveManagementView("courses");
+        }
+
+        private void SetActiveManagementView(string view)
+        {
+            bool showCourses = view == "courses";
+
+            ViewState["AdminManagementView"] = showCourses ? "courses" : "students";
+            StudentManagementPlaceholder.Visible = !showCourses;
+            CourseManagementPlaceholder.Visible = showCourses;
+            studentSwitchbtn.CssClass = showCourses ? "admin-switch-btn" : "admin-switch-btn active";
+            courseSwitchbtn.CssClass = showCourses ? "admin-switch-btn active" : "admin-switch-btn";
         }
     }
 }

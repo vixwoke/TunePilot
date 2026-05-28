@@ -1,43 +1,50 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Quiz.aspx.cs" Inherits="TunePilot.Quiz" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Quiz.aspx.cs" Inherits="TunePilot.Quiz" MasterPageFile="~/navbar.Master" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Quiz - TunePilot</title>
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-            Quiz<br />
-            <asp:PlaceHolder
-                ID="QuestionContainer"
-                runat="server"></asp:PlaceHolder>
-            <hr />
-            <asp:Label ID="QuizTitle" runat="server" Text="Label"></asp:Label>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="quiz-page-wrapper">
+
+        <div class="quiz-card">
+            <h2><asp:Label ID="QuizTitle" runat="server" /></h2>
+            <div class="quiz-meta">
+                <asp:Label ID="QuizDecription" runat="server" /> —
+                <asp:Label ID="PassingScore" runat="server" />
+            </div>
+
+            <div class="quiz-question-text">
+                <asp:Label ID="QuizQuestion" runat="server" />
+            </div>
+
+            <div class="quiz-options">
+                <asp:Button ID="QuizOption1" runat="server" OnClick="Option_Click" CssClass="quiz-option-btn" />
+                <asp:Button ID="QuizOption2" runat="server" OnClick="Option_Click" CssClass="quiz-option-btn" />
+                <asp:Button ID="QuizOption3" runat="server" OnClick="Option_Click" CssClass="quiz-option-btn" />
+                <asp:Button ID="QuizOption4" runat="server" OnClick="Option_Click" CssClass="quiz-option-btn" />
+            </div>
+
+            <div class="quiz-nav">
+                <asp:Button ID="PrevBtn" runat="server" OnClick="Prev_Click" Text="Prev" CssClass="btn-primary" />
+                <asp:Button ID="CompleteBtn" runat="server" OnClick="Complete_Click" Text="Complete" CssClass="btn-primary" />
+                <asp:Button ID="NextBtn" runat="server" OnClick="Next_Click" Text="Next" CssClass="btn-primary" />
+            </div>
         </div>
-        <asp:Label ID="QuizDecription" runat="server" Text="Label"></asp:Label>
-        <asp:Label ID="PassingScore" runat="server" Text="Label"></asp:Label>
-        <hr />
-        <asp:Label ID="QuizQuestion" runat="server" Text="Label"></asp:Label>
-        <br />
-        <asp:Button ID="QuizOption1" runat="server" OnClick="Option_Click" />
-        <asp:Button ID="QuizOption2" runat="server" OnClick="Option_Click" />
-        <asp:Button ID="QuizOption3" runat="server" OnClick="Option_Click" />
-        <asp:Button ID="QuizOption4" runat="server" OnClick="Option_Click" />
-        <hr />
-        <asp:Button ID="PrevBtn" runat="server" OnClick="Prev_Click" Text="Prev" />
-        <asp:Button ID="CompleteBtn" runat="server" OnClick="Complete_Click" Text="Complete" />
-        <asp:Button ID="NextBtn" runat="server" OnClick="Next_Click" Text="Next" />
-        <br />
-        <asp:Button ID="BackBtn" runat="server" Text="Back" OnClick="Back_Click" />
-        <hr />
-        Previos Attempt
-        <br />
-                    <asp:PlaceHolder
-                ID="Attempt"
-                runat="server"></asp:PlaceHolder>
 
-    </form>
-</body>
-</html>
+        <div class="quiz-card">
+            <div class="quiz-status-header">
+                <span>Question Status</span>
+                <asp:PlaceHolder ID="QuestionContainer" runat="server" />
+            </div>
+        </div>
+
+        <div class="quiz-card">
+            <h3 class="quiz-subheading">Previous Attempts</h3>
+            <asp:PlaceHolder ID="Attempt" runat="server" />
+        </div>
+
+        <asp:Button ID="BackBtn" runat="server" Text="Back to Dashboard" OnClick="Back_Click" CssClass="back-link" />
+
+    </div>
+</asp:Content>

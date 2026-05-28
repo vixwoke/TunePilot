@@ -1,104 +1,70 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Lesson.aspx.cs" Inherits="TunePilot.Lesson" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Lesson.aspx.cs" Inherits="TunePilot.Lesson" MasterPageFile="~/navbar.Master" %>
 
-<!DOCTYPE html>
-<html>
-<head runat="server">
-    <title>Lesson</title>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Lesson - TunePilot</title>
+</asp:Content>
 
-    <style>
-        .lesson-btn {
-            display: block;
-            margin: 6px 0;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-        .current {
-            color: green;
-            font-weight: bold;
-        }
+    <div class="lesson-page-wrapper">
 
-        .completed {
-            color: green;
-        }
+        <!-- HEADER -->
+        <div class="lesson-header-card">
+            <h2>
+                <asp:Label ID="LabelInstrument" runat="server" />
+                <span class="level-badge">— <asp:Label ID="LabelLevel" runat="server" /></span>
+            </h2>
+        </div>
 
-        .normal {
-            color: black;
-        }
-    </style>
-</head>
+        <!-- TWO-COLUMN LAYOUT -->
+        <div class="lesson-layout">
 
-<body>
-    <form runat="server">
+            <!-- SIDEBAR: Lesson List -->
+            <div class="lesson-sidebar">
+                <h3>Lessons</h3>
+                <asp:PlaceHolder ID="LessonContainer" runat="server" />
+            </div>
 
-        <h2>
-            <asp:Label ID="LabelInstrument" runat="server" />
-            -
-        <asp:Label ID="LabelLevel" runat="server" />
-        </h2>
+            <!-- MAIN: Lesson Content -->
+            <div class="lesson-main">
 
-        <hr />
-        <!-- LESSON LIST -->
-        <asp:PlaceHolder
-            ID="LessonContainer"
-            runat="server"></asp:PlaceHolder>
+                <!-- TITLE + VIDEO -->
+                <div class="section-card">
+                    <div class="lesson-title">
+                        <asp:Label ID="LessonTitle" runat="server" />
+                    </div>
+                    <div class="video-wrapper">
+                        <video id="VideoPlayer" runat="server" width="700" controls></video>
+                    </div>
+                </div>
 
-        <hr />
+                <!-- RESOURCES -->
+                <div class="section-card lesson-resources">
+                    <h4>Lesson Resources</h4>
+                    <asp:PlaceHolder ID="ContentContainer" runat="server" />
+                </div>
 
-        <!-- CURRENT LESSON TITLE -->
-        <h2>
-            <asp:Label
-                ID="LessonTitle"
-                runat="server" />
-        </h2>
+                <!-- SUMMARY -->
+                <div class="section-card lesson-summary">
+                    <h4>Summary</h4>
+                    <p><asp:Label ID="LessonDesc" runat="server" /></p>
+                    <span class="duration-badge"><asp:Label ID="LessonDuration" runat="server" /></span>
+                </div>
 
-        <!-- LESSON CONTENT FILES -->
-        <h3>Lesson Resources</h3>
+                <!-- NAVIGATION -->
+                <div class="lesson-nav">
+                    <asp:Button ID="PrevBtn" runat="server" Text="Prev" OnClick="Prev_Click" CssClass="btn-primary" />
+                    <asp:Button ID="CompleteBtn" runat="server" Text="Complete" OnClick="Complete_Click" CssClass="btn-complete" />
+                    <asp:Button ID="NextBtn" runat="server" Text="Next" OnClick="Next_Click" CssClass="btn-primary" />
+                </div>
 
-        <asp:PlaceHolder
-            ID="ContentContainer"
-            runat="server"></asp:PlaceHolder>
+                <div class="lesson-back">
+                    <asp:Button ID="BackBtn" runat="server" Text="Back to Dashboard" OnClick="Back_Click" CssClass="btn-link" />
+                </div>
 
-        <hr />
+            </div>
+        </div>
 
-        <!-- VIDEO -->
-        <video
-            id="VideoPlayer"
-            runat="server"
-            width="700"
-            controls>
-        </video>
+    </div>
 
-        <hr />
-
-        <!-- SUMMARY -->
-        <h3>Summary</h3>
-
-        <asp:Label
-            ID="LessonDesc"
-            runat="server" />
-
-        <br />
-        <br />
-
-        <asp:Label
-            ID="LessonDuration"
-            runat="server" />
-
-        <hr />
-
-        <!-- NAV -->
-        <asp:Button ID="PrevBtn" runat="server" Text="Prev" OnClick="Prev_Click" />
-        <asp:Button ID="CompleteBtn" runat="server" Text="Complete" OnClick="Complete_Click" />
-        <asp:Button ID="NextBtn" runat="server" Text="Next" OnClick="Next_Click" />
-
-        <br />
-        <br />
-
-        <asp:Button ID="BackBtn" runat="server" Text="Back" OnClick="Back_Click" />
-
-    </form>
-</body>
-</html>
+</asp:Content>

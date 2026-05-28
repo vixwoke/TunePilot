@@ -15,13 +15,13 @@ namespace TunePilot
     {
 
         /// <summary>
-        /// form1 control.
+        /// lblGreeting control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Label lblGreeting;
 
         /// <summary>
         /// RoleLabel control.
@@ -33,31 +33,31 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.Label RoleLabel;
 
         /// <summary>
-        /// GuitarIcon control.
+        /// CardGuitar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image GuitarIcon;
+        protected global::System.Web.UI.HtmlControls.HtmlButton CardGuitar;
 
         /// <summary>
-        /// DrumIcon control.
+        /// CardDrum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image DrumIcon;
+        protected global::System.Web.UI.HtmlControls.HtmlButton CardDrum;
 
         /// <summary>
-        /// TrumpetIcon control.
+        /// CardTrumpet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image TrumpetIcon;
+        protected global::System.Web.UI.HtmlControls.HtmlButton CardTrumpet;
 
         /// <summary>
         /// LabelInstrumentName control.
@@ -140,13 +140,5 @@ namespace TunePilot
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ExamProgressContainer;
 
-        /// <summary>
-        /// LoginUnlock control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LoginUnlock;
     }
 }

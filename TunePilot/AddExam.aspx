@@ -1,86 +1,80 @@
-﻿<%@ Page Title="Add Exam" Language="C#" MasterPageFile="~/navbar.Master" AutoEventWireup="true" CodeBehind="AddExam.aspx.cs" Inherits="TunePilot.AddExam" %>
+<%@ Page Title="Add Exam" Language="C#" MasterPageFile="~/navbar.Master" AutoEventWireup="true" CodeBehind="AddExam.aspx.cs" Inherits="TunePilot.AddExam" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="admin-page-wrapper">
+        <div class="admin-card">
 
-    <asp:Label ID="pageTitlelbl" runat="server" Text="Add Exam" Font-Bold="true" Font-Size="XX-Large" Font-Names="Montserrat"></asp:Label>
+            <div class="page-title"><asp:Label ID="pageTitlelbl" runat="server" Text="Add Exam" Font-Bold="true" Font-Size="XX-Large" Font-Names="Plus Jakarta Sans"></asp:Label></div>
 
-    <br /><br />
+            <asp:Button ID="backbtn" runat="server" Text="Back to Dashboard" OnClick="backbtn_Click" CssClass="back-link" />
 
-    <asp:Button ID="backbtn" runat="server" Text="← Back to Dashboard" OnClick="backbtn_Click" />
+            <asp:Label ID="courseTitlelbl" runat="server" Font-Bold="true" Font-Size="Large" Font-Names="Plus Jakarta Sans" CssClass="section-title" style="display: block;"></asp:Label>
 
-    <br /><br />
+            <asp:Label ID="messagelbl" runat="server" Visible="false" ForeColor="Red" CssClass="message-label"></asp:Label>
 
-    <asp:Label ID="courseTitlelbl" runat="server" Font-Bold="true" Font-Size="Large" Font-Names="Montserrat"></asp:Label>
+            <div class="section-title">Exam Details</div>
 
-    <br /><br />
+            <div class="form-group">
+                <label>Title</label>
+                <asp:TextBox ID="examTitletb" runat="server" CssClass="form-control" Width="100%"></asp:TextBox>
+            </div>
 
-    <asp:Label ID="messagelbl" runat="server" Visible="false" ForeColor="Red" Font-Names="Montserrat"></asp:Label>
+            <div class="form-group">
+                <label>Description</label>
+                <asp:TextBox ID="examDesctb" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="4" Width="100%"></asp:TextBox>
+            </div>
 
-    <br />
+            <div class="form-group">
+                <label>Passing Score (%)</label>
+                <asp:TextBox ID="passingStoretb" runat="server" CssClass="form-control" Width="120px"></asp:TextBox>
+            </div>
 
-    <asp:Label runat="server" Text="Exam Details" Font-Bold="true" Font-Size="Large" Font-Names="Montserrat"></asp:Label>
-    <br /><br />
+            <div class="btn-row">
+                <asp:Button ID="saveExambtn" runat="server" Text="Save Exam" OnClick="saveExambtn_Click" CssClass="btn-primary" />
+            </div>
 
-    <asp:Label runat="server" Text="Title" Font-Names="Montserrat"></asp:Label>
-    <br />
-    <asp:TextBox ID="examTitletb" runat="server" Width="400px"></asp:TextBox>
-    <br /><br />
+            <asp:Panel ID="questionspnl" runat="server" Visible="false">
 
-    <asp:Label runat="server" Text="Description" Font-Names="Montserrat"></asp:Label>
-    <br />
-    <asp:TextBox ID="examDesctb" runat="server" TextMode="MultiLine" Width="400px" Rows="4"></asp:TextBox>
-    <br /><br />
+                <div class="section-title">Exam Questions</div>
 
-    <asp:Label runat="server" Text="Passing Score (%)" Font-Names="Montserrat"></asp:Label>
-    <br />
-    <asp:TextBox ID="passingStoretb" runat="server" Width="100px"></asp:TextBox>
-    <br /><br />
+                <asp:GridView ID="questionsgv" runat="server"
+                    AutoGenerateColumns="false"
+                    DataKeyNames="question_id"
+                    CssClass="admin-table">
+                    <Columns>
+                        <asp:BoundField DataField="question_id" HeaderText="ID" />
+                        <asp:BoundField DataField="instruction" HeaderText="Instruction" />
+                        <asp:BoundField DataField="expected_notes" HeaderText="Expected Notes" />
+                        <asp:BoundField DataField="question_order" HeaderText="Order" />
+                    </Columns>
+                </asp:GridView>
 
-    <asp:Button ID="saveExambtn" runat="server" Text="Save Exam" OnClick="saveExambtn_Click" />
+                <div class="section-title" style="font-size: 0.95rem;">Add Question</div>
 
-    <br /><br />
+                <div class="form-group">
+                    <label>Instruction</label>
+                    <asp:TextBox ID="instructiontb" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" Width="100%"></asp:TextBox>
+                </div>
 
-    <asp:Panel ID="questionspnl" runat="server" Visible="false">
+                <div class="form-group">
+                    <label>Expected Notes (space separated e.g. C4 D4 E4)</label>
+                    <asp:TextBox ID="expectedNotestb" runat="server" CssClass="form-control" Width="100%"></asp:TextBox>
+                </div>
 
-        <asp:Label runat="server" Text="Exam Questions" Font-Bold="true" Font-Size="Large" Font-Names="Montserrat"></asp:Label>
-        <br /><br />
+                <div class="form-group">
+                    <label>Order</label>
+                    <asp:TextBox ID="questionOrdertb" runat="server" CssClass="form-control" Width="100px"></asp:TextBox>
+                </div>
 
-        <asp:GridView ID="questionsgv" runat="server"
-            AutoGenerateColumns="false"
-            DataKeyNames="question_id">
-            <Columns>
-                <asp:BoundField DataField="question_id"    HeaderText="ID" />
-                <asp:BoundField DataField="instruction"    HeaderText="Instruction" />
-                <asp:BoundField DataField="expected_notes" HeaderText="Expected Notes" />
-                <asp:BoundField DataField="question_order" HeaderText="Order" />
-            </Columns>
-        </asp:GridView>
+                <div class="btn-row">
+                    <asp:Button ID="addQuestionbtn" runat="server" Text="+ Add Question" OnClick="addQuestionbtn_Click" CssClass="btn-primary" />
+                </div>
 
-        <br />
+            </asp:Panel>
 
-        <asp:Label runat="server" Text="Add Question" Font-Bold="true" Font-Names="Montserrat"></asp:Label>
-        <br /><br />
-
-        <asp:Label runat="server" Text="Instruction" Font-Names="Montserrat"></asp:Label>
-        <br />
-        <asp:TextBox ID="instructiontb" runat="server" TextMode="MultiLine" Width="400px" Rows="3"></asp:TextBox>
-        <br /><br />
-
-        <asp:Label runat="server" Text="Expected Notes (space separated e.g. C4 D4 E4)" Font-Names="Montserrat"></asp:Label>
-        <br />
-        <asp:TextBox ID="expectedNotestb" runat="server" Width="400px"></asp:TextBox>
-        <br /><br />
-
-        <asp:Label runat="server" Text="Order" Font-Names="Montserrat"></asp:Label>
-        <br />
-        <asp:TextBox ID="questionOrdertb" runat="server" Width="100px"></asp:TextBox>
-        <br /><br />
-
-        <asp:Button ID="addQuestionbtn" runat="server" Text="+ Add Question" OnClick="addQuestionbtn_Click" />
-
-    </asp:Panel>
-
+        </div>
+    </div>
 </asp:Content>

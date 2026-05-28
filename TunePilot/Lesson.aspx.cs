@@ -462,14 +462,12 @@ namespace TunePilot
                 if (r != null && r.ToString() == "completed")
                 {
                     CompleteBtn.Text = "Completed";
-
-                    CompleteBtn.ForeColor = Color.Green;
+                    CompleteBtn.CssClass = "btn-complete completed";
                 }
                 else
                 {
                     CompleteBtn.Text = "Complete";
-
-                    CompleteBtn.ForeColor = Color.Black;
+                    CompleteBtn.CssClass = "btn-complete";
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace TunePilot
                 using (SqlConnection conn = new SqlConnection(connStr))
                 {
                     conn.Open();
-                    string query = "SELECT user_id, first_name, username, role FROM users WHERE (email = @input OR username = @input) AND password = @password AND active = 1";
+                    string query = "SELECT user_id, first_name, last_name, username, role FROM users WHERE (email = @input OR username = @input) AND password = @password AND active = 1";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@input", emailOrUsername);
                     cmd.Parameters.AddWithValue("@password", password);
@@ -43,6 +43,7 @@ namespace TunePilot
                         Session["user_id"] = reader["user_id"].ToString();
                         Session["username"] = reader["username"].ToString();
                         Session["first_name"] = reader["first_name"].ToString();
+                        Session["last_name"] = reader["last_name"].ToString();
                         Session["role"] = reader["role"].ToString();
                         if (Session["role"].ToString() == "admin")
                         {

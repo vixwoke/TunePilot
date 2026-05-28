@@ -210,17 +210,13 @@ namespace TunePilot
                 int questionId = Convert.ToInt32(questions.Rows[i]["question_id"]);
                 bool answered = IsAnswered(questionId);
 
-                Label dot = new Label();
-                dot.Text = " ● ";
+                string cssClass = "status-dot";
+                if (i == currentIndex) cssClass += " current";
+                else if (answered) cssClass += " answered";
 
-                if (i == currentIndex)
-                    dot.ForeColor = System.Drawing.Color.DarkGreen;
-                else if (answered)
-                    dot.ForeColor = System.Drawing.Color.Green;
-                else
-                    dot.ForeColor = System.Drawing.Color.Gray;
-
-                QuestionStatusContainer.Controls.Add(dot);
+                QuestionStatusContainer.Controls.Add(
+                    new Literal { Text = "<span class=\"" + cssClass + "\"></span>" }
+                );
             }
         }
 

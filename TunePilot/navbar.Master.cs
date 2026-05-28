@@ -14,15 +14,43 @@ namespace TunePilot
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user_id"] == null)
+            if (Session["role"] == null)
             {
                 chatbot_container.Visible = false;
+                navphLogin.Visible = true;
+                navphRegister.Visible = true;
+                navAccCornerContainer.Visible = false;
+            }
+            else if (Session["role"].ToString() == "student")
+            {
+                chatbot_container.Visible = true;
+                lblName.Text = Session["first_name"]?.ToString();
+                lblUserame.Text = "@" + Session["username"]?.ToString();
+                navphLogin.Visible = false;
+                navphRegister.Visible = false;
+                navAccCornerContainer.Visible = true;
+            }
+            else if (Session["role"].ToString() == "admin")
+            {
+                chatbot_container.Visible = false;
+                lblName.Text = Session["first_name"]?.ToString();
+                lblUserame.Text = "Admin @" + Session["username"]?.ToString();
+                navphLogin.Visible = false;
+                navphRegister.Visible = false;
+                navAccCornerContainer.Visible = true;
             }
             else
             {
-                lblName.Text = Session["first_name"]?.ToString();
-                lblUserame.Text = "@" + Session["username"]?.ToString();
+                Response.Write("<script>alert('fall into else error. when the navigation bar load, session [role] is not NULL, student, or admin. File affected: navbar.Master.cs');</script>");
             }
+
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("~/home.aspx");
         }
 
         protected void chatSendbtn_Click(object sender, EventArgs e)
@@ -39,7 +67,7 @@ namespace TunePilot
             string safeMessage = userMessage.Replace("'", "\\'").Replace("\r", "").Replace("\n", "<br>");
             string safeResponse = response.Replace("'", "\\'").Replace("\r", "").Replace("\n", "<br>");
 
-            string script = $"document.getElementById('chatbot-messages').innerHTML += '<div class=\"user-msg\">You: {safeMessage}</div><div class=\"bot-msg\">TunePilot: {safeResponse}</div>'; document.getElementById('chatbot-box').style.display = 'block';";
+            string script = $"document.getElementById('chatbot-messages').innerHTML += '<div class=\"user-msg\">You: {safeMessage}</div><div class=\"bot-msg\">TunePilot: {safeResponse}</div>'; toggleChatbot(true);";
 
             Page.ClientScript.RegisterStartupScript(GetType(), "chatResponse", script, true);
             chatInputtb.Text = "";
