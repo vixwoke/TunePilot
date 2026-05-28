@@ -54,8 +54,8 @@ namespace TunePilot
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(@"
-                    SELECT first_name, last_name, role 
-                    FROM users WHERE user_id = @id", conn);
+            SELECT first_name, last_name, role 
+            FROM users WHERE user_id = @id", conn);
                 cmd.Parameters.AddWithValue("@id", userId);
                 SqlDataReader r = cmd.ExecuteReader();
                 if (r.Read())
@@ -63,16 +63,13 @@ namespace TunePilot
                 r.Close();
 
                 cmd = new SqlCommand(@"
-                    SELECT c.title, e.status,
-                        (
-                         SELECT COUNT(*) FROM progress p JOIN lessons l ON p.lesson_id = l.lesson_id
-                         WHERE p.user_id = @id AND l.course_id = c.course_id AND p.status = 'completed') AS completed_lessons,
-                         (SELECT COUNT(*) FROM lessons l 
-                         WHERE l.course_id = c.course_id
-                        ) AS total_lessons
-                    FROM enrollments e
-                    JOIN courses c ON e.course_id = c.course_id
-                    WHERE e.user_id = @id", conn);
+            SELECT c.title, e.status,
+                (SELECT COUNT(*) FROM progress p JOIN lessons l ON p.lesson_id = l.lesson_id
+                 WHERE p.user_id = @id AND l.course_id = c.course_id AND p.status = 'completed') AS completed_lessons,
+                (SELECT COUNT(*) FROM lessons l WHERE l.course_id = c.course_id) AS total_lessons
+            FROM enrollments e
+            JOIN courses c ON e.course_id = c.course_id
+            WHERE e.user_id = @id", conn);
                 cmd.Parameters.AddWithValue("@id", userId);
                 r = cmd.ExecuteReader();
                 sb.AppendLine("Enrolled courses:");
@@ -81,14 +78,37 @@ namespace TunePilot
                 r.Close();
 
                 cmd = new SqlCommand(@"
-                    SELECT c.title, i.name AS instrument, c.difficulty_level,
-                        (SELECT COUNT(*) FROM lessons l WHERE l.course_id = c.course_id) AS lesson_count
-                    FROM courses c
-                    JOIN instruments i ON c.instrument_id = i.instrument_id", conn);
+            SELECT c.title, i.name AS instrument, c.difficulty_level,
+                (SELECT COUNT(*) FROM lessons l WHERE l.course_id = c.course_id) AS lesson_count
+            FROM courses c
+            JOIN instruments i ON c.instrument_id = i.instrument_id", conn);
                 r = cmd.ExecuteReader();
                 sb.AppendLine("Available courses:");
                 while (r.Read())
                     sb.AppendLine($"- {r["title"]} ({r["instrument"]}, {r["difficulty_level"]}, {r["lesson_count"]} lessons)");
+                r.Close();
+
+                cmd = new SqlCommand(@"
+            SELECT l.title AS lesson_title, lc.content_type, lc.title AS content_title,
+                   lc.body, lc.media_url
+            FROM lesson_contents lc
+            JOIN lessons l ON lc.lesson_id = l.lesson_id
+            JOIN courses c ON l.course_id = c.course_id
+            JOIN enrollments e ON c.course_id = e.course_id
+            WHERE e.user_id = @id
+            ORDER BY l.lesson_id, lc.content_order", conn);
+                cmd.Parameters.AddWithValue("@id", userId);
+                r = cmd.ExecuteReader();
+                sb.AppendLine("Lesson contents for enrolled courses:");
+                while (r.Read())
+                {
+                    string contentTitle = r["content_title"].ToString();
+                    string body = r["body"] == DBNull.Value ? "" : r["body"].ToString();
+                    string url = r["media_url"] == DBNull.Value ? "" : r["media_url"].ToString();
+                    sb.AppendLine($"- [{r["content_type"]}] {r["lesson_title"]} > {contentTitle}" +
+                                  (string.IsNullOrEmpty(body) ? "" : $": {body.Substring(0, Math.Min(200, body.Length))}...") +
+                                  (string.IsNullOrEmpty(url) ? "" : $" (URL: {url})"));
+                }
                 r.Close();
             }
 
