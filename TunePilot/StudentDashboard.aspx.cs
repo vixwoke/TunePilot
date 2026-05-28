@@ -12,7 +12,7 @@ namespace TunePilot
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["role"] == null) Session["role"] = "fallback_role";
+            if (Session["role"] == null) Session["role"] = "guest";
             if (Session["instrument"] == null) Session["instrument"] = 1;
 
             RoleLabel.Text = Session["role"].ToString();
