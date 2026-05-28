@@ -250,6 +250,13 @@
   <ItemGroup>
     <Content Include="navbar.Master" />
     <None Include="packages.config" />
+    <None Include="Web - Copy.config.local" />
+    <None Include="Web - Copy.config.Debug.local">
+      <DependentUpon>Web - Copy.config.local</DependentUpon>
+    </None>
+    <None Include="Web - Copy.config.Release.local">
+      <DependentUpon>Web - Copy.config.local</DependentUpon>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

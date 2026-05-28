@@ -27,5 +27,10 @@ namespace TunePilot
         {
             Response.Redirect("aboutus.aspx");
         }
+
+        protected void buttonTryCourse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StudentDashboard.aspx");
+        }
     }
 }

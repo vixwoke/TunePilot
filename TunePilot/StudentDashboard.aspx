@@ -69,7 +69,7 @@
                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                     </svg>
-                    <h2>Lessons</h2>
+                    <h2 id="lblLessons">Lessons</h2>
                 </div>
                 <asp:PlaceHolder ID="LessonContainer" runat="server" />
                 <div class="progress-grid">
@@ -83,7 +83,7 @@
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M12 6v6l4 2"/>
                     </svg>
-                    <h2>Quizzes</h2>
+                    <h2 id="lblQuizzes" runat="server">Quizzes</h2>
                 </div>
                 <asp:PlaceHolder ID="QuizContainer" runat="server" />
                 <div class="progress-grid">
@@ -98,7 +98,7 @@
                         <rect x="9" y="3" width="6" height="4" rx="1"/>
                         <path d="M9 12l2 2 4-4"/>
                     </svg>
-                    <h2>Exams</h2>
+                    <h2 ID="lblExams" runat="server">Exams</h2>
                 </div>
                 <asp:PlaceHolder ID="ExamContainer" runat="server" />
                 <div class="progress-grid">

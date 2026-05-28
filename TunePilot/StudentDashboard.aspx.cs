@@ -12,15 +12,22 @@ namespace TunePilot
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["role"] == null) Session["role"] = "guest";
             if (Session["instrument"] == null) Session["instrument"] = 1;
 
-            RoleLabel.Text = Session["role"].ToString();
+            RoleLabel.Text = Session["role"]?.ToString() ?? "Unknown";
 
-            if (Session["first_name"] != null)
-                lblGreeting.Text = "Welcome back, " + Session["first_name"].ToString() + " " + Session["last_name"].ToString()+"!";
+            if (Session["role"].ToString() == "admin" || Session["role"].ToString() == "student")
+            {
+                lblGreeting.Text = "Welcome back, " + Session["first_name"]?.ToString() + " " + Session["last_name"]?.ToString() + "!";
+            }
+            else if (Session["role"].ToString() == "guest")
+            {
+                lblGreeting.Text = "Login or register to unlock all components!";
+            }
             else
-                lblGreeting.Text = "Welcome, [if u see this, session is empty. check it pls/]";
+            {
+                lblGreeting.Text = "Welcome, [if u see this, session is empty. check it pls.]";
+            }
 
             CardGuitar.ServerClick += InstrumentBtn_Click;
             CardDrum.ServerClick += InstrumentBtn_Click;
@@ -148,12 +155,14 @@ namespace TunePilot
                     }
                     else
                     {
-                        Label lbl = new Label();
-
-                        lbl.Text = lessonNumber + ". " + r["lesson_title"].ToString() + " (Locked)";
-                        lbl.CssClass = "lesson-locked";
-
-                        LessonContainer.Controls.Add(lbl);
+                        string lblLessonList = Server.HtmlEncode(r["lesson_title"].ToString());
+                        Literal lit = new Literal();
+                        lit.Text =
+                            "<div class=\"lesson-locked\">" +
+                                "<span>" + lessonNumber + ". " + lblLessonList + "</span>" +
+                                "<span class=\"guestlock-indicator\"> Locked</span>" +
+                            "</div>";
+                        LessonContainer.Controls.Add(lit);
                     }
 
                     lessonNumber++;
@@ -177,7 +186,13 @@ namespace TunePilot
             QuizContainer.Controls.Clear();
             QuizProgressContainer.Controls.Clear();
 
-            if (Session["role"].ToString() == "guest") return;
+            if (Session["role"].ToString() == "guest")
+            {
+                lblQuizzes.InnerHtml = "Quizzes <span class=\"guestlock-indicator\">LOCKED</span>";
+                return;
+            }
+
+            lblQuizzes.InnerText = "Quizzes";
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
@@ -301,7 +316,13 @@ ORDER BY c.course_id, q.quiz_id;";
             ExamContainer.Controls.Clear();
             ExamProgressContainer.Controls.Clear();
 
-            if (Session["role"].ToString() == "guest") return;
+            if (Session["role"].ToString() == "guest")
+            {
+                lblExams.InnerHtml = "Exams <span class=\"guestlock-indicator\">LOCKED</span>";
+                return;
+            }
+
+            lblExams.InnerText = "Exams";
 
             using (SqlConnection con = new SqlConnection(connStr))
             {

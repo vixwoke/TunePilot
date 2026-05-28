@@ -16,6 +16,14 @@ namespace TunePilot
         {
             if (Session["role"] == null)
             {
+                Session["role"] = "guest";
+                chatbot_container.Visible = false;
+                navphLogin.Visible = true;
+                navphRegister.Visible = true;
+                navAccCornerContainer.Visible = false;
+            }
+            else if (Session["role"].ToString() == "guest")
+            {
                 chatbot_container.Visible = false;
                 navphLogin.Visible = true;
                 navphRegister.Visible = true;
@@ -41,7 +49,7 @@ namespace TunePilot
             }
             else
             {
-                Response.Write("<script>alert('fall into else error. when the navigation bar load, session [role] is not NULL, student, or admin. File affected: navbar.Master.cs');</script>");
+                Response.Write("<script>alert('fall into else error. when the navigation bar load, session [role] is not NULL, guest, student, or admin. File affected: navbar.Master.cs');</script>");
             }
 
         }

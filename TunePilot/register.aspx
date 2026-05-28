@@ -160,6 +160,8 @@
 
                     <div class="login-card-footer">
                         <a href="login.aspx">Already have an account? <strong>Sign In</strong></a>
+                        <br />
+                        <a href="damnpage.aspx">Need to take a break? <strong>Click here for mystery gift.</strong></a>
                     </div>
                 </div>
             </div>

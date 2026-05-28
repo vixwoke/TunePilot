@@ -5,6 +5,19 @@
     box-sizing: border-box;
 }
 
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
 
 :root {
     --tp-color-strong: #A59D84;
@@ -2158,6 +2171,11 @@ button.instrument-card {
     font-size: 0.83rem;
     font-style: italic;
     margin-bottom: 3px;
+}
+
+.guestlock-indicator {
+    color: red;
+    animation: blink 1.5s ease-in-out infinite;
 }
 
 .exam-item {

@@ -105,6 +105,15 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.PlaceHolder LessonProgressContainer;
 
         /// <summary>
+        /// lblQuizzes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblQuizzes;
+
+        /// <summary>
         /// QuizContainer control.
         /// </summary>
         /// <remarks>
@@ -123,6 +132,15 @@ namespace TunePilot
         protected global::System.Web.UI.WebControls.PlaceHolder QuizProgressContainer;
 
         /// <summary>
+        /// lblExams control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblExams;
+
+        /// <summary>
         /// ExamContainer control.
         /// </summary>
         /// <remarks>
@@ -139,6 +157,5 @@ namespace TunePilot
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ExamProgressContainer;
-
     }
 }

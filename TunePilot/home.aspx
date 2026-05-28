@@ -36,6 +36,7 @@
             </p>
             <div class="home-hero-buttons">
                 <asp:Button ID="buttonGetStart" runat="server" Text="Get Started" CssClass="hh-btn-primary" OnClick="buttonGetStart_Click" />
+                <asp:Button ID="buttonTryCourse" runat="server" Text="Try Course" CssClass="hh-btn-secondary" OnClick="buttonTryCourse_Click" />
                 <asp:Button ID="buttonAboutUs" runat="server" Text="Learn More" CssClass="hh-btn-secondary" OnClick="buttonAboutUs_Click" />
             </div>
         </div>

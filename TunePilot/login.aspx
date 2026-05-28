@@ -133,6 +133,8 @@
 
                     <div class="login-card-footer">
                         <a href="register.aspx">Don't have an account? <strong>Sign Up</strong></a>
+                        <br />
+                        <a href="damnpage.aspx">Need to take a break? <strong>Click here for mystery gift.</strong></a>
                     </div>
                 </div>
             </div>
