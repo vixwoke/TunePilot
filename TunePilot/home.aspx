@@ -21,7 +21,7 @@
             <div class="decor-dot" style="width:6px;height:6px;bottom:35%;left:35%;background:var(--tp-color-strong);opacity:0.2;"></div>
             <div class="decor-arc" style="bottom:18%;right:25%;transform:rotate(35deg);border-color:rgba(255,255,255,0.04);"></div>
             <div class="decor-line" style="width:120px;top:40%;left:18%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);"></div>
-            <div class="decor-dots-grid" style="top:15%;right:12%;opacity:0.4;"></div>
+            <div class="decor-dots-grid" style="top:15%;right:12%;bordeer: 2px solid red;opacity:1;"></div>
             <div class="decor-glow" style="width:400px;height:400px;bottom:-80px;left:20%;background:radial-gradient(circle,rgba(165,157,132,0.08) 0%,transparent 70%);"></div>
         </div>
 
