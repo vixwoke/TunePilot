@@ -89,7 +89,7 @@
     <Content Include="register.aspx" />
     <Content Include="resources\aboutus\banner.jpg" />
     <Content Include="resources\aboutus\member1.jpg" />
-    <Content Include="resources\aboutus\member2.jpg" />
+    <Content Include="resources\aboutus\member2.jpeg" />
     <Content Include="resources\aboutus\member3.jpg" />
     <Content Include="resources\aboutus\member4.jpg" />
     <Content Include="resources\aboutus\member4.png" />
