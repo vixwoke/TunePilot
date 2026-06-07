@@ -136,14 +136,14 @@
     <div class="about-section">
         <h2>The team</h2>
 
-        <div class="team-member">
-            <img src="/resources/aboutus/member1.jpg" alt="Daniel" />
-            <div class="team-member-info">
-                <h3>Daniel Christopher Widodo</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
-            </div>
+    <div class="team-member">
+        <img src="/resources/aboutus/member1.jpg" alt="Daniel" />
+        <div class="team-member-info">
+            <h3>Daniel Christopher Widodo</h3>
+            <div class="role">Backend Developer</div>
+            <p>Responsible for building the admin dashboard, developing the note pitching detection module, and implementing the chatbot feature.</p>
         </div>
+    </div>
 
         <div class="team-member reverse">
             <img src="/resources/aboutus/member2.jpg" alt="Ng Jeechian" />
