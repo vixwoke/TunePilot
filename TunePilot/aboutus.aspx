@@ -158,8 +158,8 @@
             <img src="/resources/aboutus/member3.jpg" alt="Darren William" />
             <div class="team-member-info">
                 <h3>Darren William</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
+                <div class="role">Authentication Development</div>
+                <p>Developed register, login, and update profile page</p>
             </div>
         </div>
 
@@ -177,11 +177,11 @@
         </div>
 
         <div class="team-member">
-            <img src="/resources/aboutus/member5.jpg" alt="Yoosuf Haami" />
+            <img src="/resources/aboutus/member5.jpeg" alt="Yoosuf Haami" />
             <div class="team-member-info">
                 <h3>Yoosuf Haami</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
+                <div class="role">Database contents</div>
+                <p>Planned course contents, quiz formatting and exams</p>
             </div>
         </div>
 
