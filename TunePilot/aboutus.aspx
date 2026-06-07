@@ -146,11 +146,15 @@
     </div>
 
         <div class="team-member reverse">
-            <img src="/resources/aboutus/member2.jpg" alt="Ng Jeechian" />
+            <img src="/resources/aboutus/member2.jpeg" alt="Ng Jeechian" />
             <div class="team-member-info">
                 <h3>Ng Jeechian</h3>
-                <div class="role">[Insert Role]</div>
-                <p>[Insert Description]</p>
+                <div class="role">Backend Developer</div>
+                <p>Responsible for building the student dashboard, lesson and quiz pages</p>
+                 <a class="portfolio-link" href="https://nextportfolio-black-phi.vercel.app/" target="_blank">
+                                         <span>View portfolio</span>
+                    <strong>https://nextportfolio-black-phi.vercel.app/</strong>
+                </a>
             </div>
         </div>
 
